@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+>
+	<TextView 
+	    android:id="@+id/title"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textStyle="bold"
+		android:textColor="#FFFFFFFF"		    
+		android:text="titre"		    
+		android:textSize="20sp"		    
+		android:gravity="center_horizontal"
+		android:paddingTop="10dp"
+	/>
+   	<RelativeLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"	    
+		android:padding="10dp"
+		android:paddingBottom="0dp"
+	>
+	    <LinearLayout 
+	        android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+    		android:orientation="vertical" 
+    		android:id="@+id/titleLayout"
+    		android:layout_toLeftOf="@+id/ratingBar"
+    		android:paddingBottom="15dp"
+	   	>
+			<TextView 
+			    android:id="@+id/adresse"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+				android:textColor="#FFFFFFFF"		    
+				android:text="adresse"		    
+				android:textSize="20sp"		    
+			/>
+	    </LinearLayout>
+ 		<RatingBar
+		    android:id="@+id/ratingBar"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:isIndicator="true"
+		    android:numStars="5" 
+	  	 	android:layout_alignParentRight="true"
+	  	 	android:layout_centerVertical="true"
+	  	 	style="?android:attr/ratingBarStyleSmall"
+	  	 	
+	  	 	
+		/>
+	        	    
+	    
+	</RelativeLayout>
+
+	<Button 
+	 	android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_gravity="center_horizontal"
+		android:text="@+string/addComment"
+	/>
+	<ListView
+		android:id="@android:id/list"
+	 	android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:cacheColorHint="#00000000"
+    />    
+</LinearLayout>
