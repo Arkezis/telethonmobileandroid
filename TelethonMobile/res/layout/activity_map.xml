@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+   	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+>
 
 	<com.google.android.maps.MapView
     	android:id="@+id/mapview"
@@ -10,6 +12,17 @@
     	android:layout_height="fill_parent"
     	android:clickable="true"
     	android:apiKey="0hjXwEBOq3wb3BeoXoc2rqIWzkWSZWKt-4Nr9Qw"
+    	android:layout_above="@+id/addPOI"
+	/>
+	
+	<Button 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+		android:id="@+id/addPOI"		    
+		android:layout_alignParentBottom="true"
+		android:text="@+string/addPoiButton"
+		android:layout_centerInParent="true"
+		android:layout_margin="10dp"
 	/>
     
-</LinearLayout>
+</RelativeLayout>
