@@ -1,13 +1,10 @@
 package com.bemyapp.telethonmobile;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,23 +12,22 @@ import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.bemyapp.telethonmobile.constants.Constants;
-import com.bemyapp.telethonmobile.tools.JSONTools;
-import com.bemyapp.telethonmobile.tools.MyMapMarker;
-import com.bemyapp.telethonmobile.tools.Poi;
+import com.bemyapp.telethonmobile.tools.SaveNewPoi;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
 
@@ -39,19 +35,62 @@ public class MapViewActivity extends MapActivity {
 	private double longitude = -1;
 	private LocationManager lm = null;
 	private GeoPoint p = null;
-	private List<Poi> pois = null;
+	private Button addPoi;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-
-		Button addPoi = (Button) findViewById(R.id.addPOI);
+		final String errorMessage = getString(R.string.errorLabelEmpty);
+		addPoi = (Button) findViewById(R.id.addPOI);
+		addPoi.setVisibility(View.INVISIBLE);
 		addPoi.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
+				final AlertDialog.Builder alert = new AlertDialog.Builder(
+						MapViewActivity.this);
+				LayoutInflater inflater = getLayoutInflater();
+				final View body = inflater
+						.inflate(R.layout.popup_new_poi, null);
+				alert.setView(body);
+				alert.setPositiveButton("Créer",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								EditText et = (EditText) body
+										.findViewById(R.id.poiName);
+								final String name = et.getText().toString();
+								if (name == null || name.equals("")) {
+									AlertDialog.Builder builder = new AlertDialog.Builder(
+											MapViewActivity.this);
+									builder.setMessage(errorMessage);
+									builder.show();
+								}
+								Spinner sp = (Spinner) body
+										.findViewById(R.id.category);
+
+								final int categoryId = sp
+										.getSelectedItemPosition() + 1;
+
+								new SaveNewPoi(name, categoryId, latitude,
+										longitude).execute();
+							}
+
+						});
+				alert.setNegativeButton("Annuler",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+				alert.show();
 			}
 		});
 
@@ -116,6 +155,7 @@ public class MapViewActivity extends MapActivity {
 			Log.e(Constants.LOG, "longitude = " + longitude);
 			updateMapPosition();
 			getMarkers();
+			addPoi.setVisibility(View.VISIBLE);
 		}
 	};
 
@@ -146,6 +186,7 @@ public class MapViewActivity extends MapActivity {
 
 			updateMapPosition();
 			getMarkers();
+			addPoi.setVisibility(View.VISIBLE);
 		}
 	};
 
@@ -190,47 +231,19 @@ public class MapViewActivity extends MapActivity {
 	}
 
 	private void getMarkers() {
-		final Context c = this;
-		final MapView mv = (MapView) findViewById(R.id.mapview);
-
-		final List<Overlay> mapOverlays = mv.getOverlays();
-		final MyMapMarker itemizedoverlay = new MyMapMarker(getResources()
-				.getDrawable(android.R.drawable.presence_away), this);
-		List<Overlay> listOfOverlays = mv.getOverlays();
-		listOfOverlays.clear();
-
-		new AsyncTask<Void, Void, Void>() {
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				JSONArray array = JSONTools
-						.getJSONArrayfromURL("http://cilheo.fr/telethonMobile.php?action=list&lat=48.8531475&long=2.3721549&range=5");
-				ArrayList<Poi> poiTmps = new ArrayList<Poi>();
-				for (int i = 0; i < array.length(); i++) {
-					try {
-						JSONObject object = array.getJSONObject(i);
-						Poi poi = new Poi();
-						poi.setName(object.getString("nom"));
-						poi.setDistance(object.getLong("distance"));
-						poi.setCategory(object.getInt("cat"));
-						poi.setLongitude(object.getDouble("long"));
-						poi.setLatitude(object.getDouble("lat"));
-						poiTmps.add(poi);
-						OverlayItem overlayitem = new OverlayItem(p,
-								poi.getName(), "Distance = "
-										+ poi.getDistance());
-						itemizedoverlay.addOverlay(overlayitem);
-						mapOverlays.add(itemizedoverlay);
-
-					} catch (JSONException e) {
-					}
-				}
-				pois = poiTmps;
-				return null;
-			}
-
-		}.execute();
-
 	}
+	// final Context c = this;
+	// final MapView mv = (MapView) findViewById(R.id.mapview);
+	//
+	// final List<Overlay> mapOverlays = mv.getOverlays();
+	// final MyMapMarker itemizedoverlay = new MyMapMarker(getResources()
+	// .getDrawable(android.R.drawable.presence_away), this);
+	// List<Overlay> listOfOverlays = mv.getOverlays();
+	// listOfOverlays.clear();
+	// OverlayItem overlayitem = new OverlayItem(p,
+	// poi.getName(), "Distance = "
+	// + poi.getDistance());
+	// itemizedoverlay.addOverlay(overlayitem);
+	// mapOverlays.add(itemizedoverlay);
 
 }
