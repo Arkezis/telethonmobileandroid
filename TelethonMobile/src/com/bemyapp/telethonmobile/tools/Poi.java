@@ -2,14 +2,12 @@ package com.bemyapp.telethonmobile.tools;
 
 public class Poi {
 	private String name;
-	private Long distance;
 	private int category;
 	private Double latitude;
 	private Double longitude;
+	private Double note;
 	private int id;
 
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -24,14 +22,6 @@ public class Poi {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getDistance() {
-		return distance;
-	}
-
-	public void setDistance(Long distance) {
-		this.distance = distance;
 	}
 
 	public int getCategory() {
@@ -58,4 +48,11 @@ public class Poi {
 		this.longitude = longitude;
 	}
 
+	public void setNote(Double note) {
+		this.note = note;
+	}
+
+	public Double getNote() {
+		return note;
+	}
 }

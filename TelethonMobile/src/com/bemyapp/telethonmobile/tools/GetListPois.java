@@ -6,10 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bemyapp.telethonmobile.constants.Constants;
-
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.bemyapp.telethonmobile.constants.Constants;
 
 public class GetListPois extends AsyncTask<Void, Void, Void> {
 
@@ -38,7 +38,7 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 		}
 
 		JSONArray array = JSONTools.getJSONArrayfromURL(url);
-		for (int i = 0; array!=null &&  i < array.length(); i++) {
+		for (int i = 0; array != null && i < array.length(); i++) {
 			try {
 				JSONObject object = array.getJSONObject(i);
 				Poi poi = new Poi();
@@ -47,10 +47,11 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 				poi.setCategory(object.getInt("cat"));
 				poi.setLongitude(object.getDouble("long"));
 				poi.setLatitude(object.getDouble("lat"));
+				poi.setNote(object.getDouble("noteG"));
 				pois.add(poi);
 
 			} catch (JSONException e) {
-				Log.e(Constants.LOG, "exception "+e.getMessage());
+				Log.e(Constants.LOG, "exception " + e.getMessage());
 			}
 		}
 		return null;
@@ -59,5 +60,5 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 	public ArrayList<Poi> getListPois() {
 		return pois;
 	}
-	
+
 }
