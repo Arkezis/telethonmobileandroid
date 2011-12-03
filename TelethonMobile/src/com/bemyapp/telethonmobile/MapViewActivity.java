@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,7 +58,7 @@ public class MapViewActivity extends MapActivity {
 				final View body = inflater
 						.inflate(R.layout.popup_new_poi, null);
 				alert.setView(body);
-				alert.setPositiveButton("Créer",
+				alert.setPositiveButton("Crï¿½er",
 						new DialogInterface.OnClickListener() {
 
 							@Override
@@ -134,25 +136,25 @@ public class MapViewActivity extends MapActivity {
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
-			Log.e(Constants.LOG, "onStatusChanged");
+			Log.d(Constants.LOG, "onStatusChanged");
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
-			Log.e(Constants.LOG, "onProviderEnabled");
+			Log.d(Constants.LOG, "onProviderEnabled");
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
-			Log.e(Constants.LOG, "onProviderDisabled");
+			Log.d(Constants.LOG, "onProviderDisabled");
 		}
 
 		@Override
 		public void onLocationChanged(Location location) {
 			latitude = location.getLatitude();
-			Log.e(Constants.LOG, "latitude = " + latitude);
+			Log.d(Constants.LOG, "latitude = " + latitude);
 			longitude = location.getLongitude();
-			Log.e(Constants.LOG, "longitude = " + longitude);
+			Log.d(Constants.LOG, "longitude = " + longitude);
 			updateMapPosition();
 			getMarkers();
 			addPoi.setVisibility(View.VISIBLE);
@@ -163,26 +165,26 @@ public class MapViewActivity extends MapActivity {
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
-			Log.e(Constants.LOG, "onStatusChanged");
+			Log.d(Constants.LOG, "onStatusChanged");
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
-			Log.e(Constants.LOG, "onProviderEnabled");
+			Log.d(Constants.LOG, "onProviderEnabled");
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
-			Log.e(Constants.LOG, "onProviderDisabled");
+			Log.d(Constants.LOG, "onProviderDisabled");
 		}
 
 		@Override
 		public void onLocationChanged(Location location) {
-			Log.e(Constants.LOG, "onLocationChagned");
+			Log.d(Constants.LOG, "onLocationChagned");
 			latitude = location.getLatitude();
-			Log.e(Constants.LOG, "latitude = " + latitude);
+			Log.d(Constants.LOG, "latitude = " + latitude);
 			longitude = location.getLongitude();
-			Log.e(Constants.LOG, "longitude = " + longitude);
+			Log.d(Constants.LOG, "longitude = " + longitude);
 
 			updateMapPosition();
 			getMarkers();
@@ -246,4 +248,14 @@ public class MapViewActivity extends MapActivity {
 	// itemizedoverlay.addOverlay(overlayitem);
 	// mapOverlays.add(itemizedoverlay);
 
+	public boolean onKeyDown(int keycode, KeyEvent kEvent){
+		if(keycode == KeyEvent.KEYCODE_BACK){
+			Intent i = new Intent(MapViewActivity.this,DashboardActivity.class);
+			startActivity(i);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keycode, kEvent);
+	}
+	
 }
