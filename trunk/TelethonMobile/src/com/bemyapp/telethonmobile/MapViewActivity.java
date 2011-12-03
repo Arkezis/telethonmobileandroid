@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import com.bemyapp.telethonmobile.constants.Constants;
 import com.bemyapp.telethonmobile.tools.GetListPois;
 import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
+import com.bemyapp.telethonmobile.tools.MyOverlayItem;
 import com.bemyapp.telethonmobile.tools.Poi;
 import com.bemyapp.telethonmobile.tools.SaveNewPoi;
 import com.google.android.maps.GeoPoint;
@@ -47,9 +48,6 @@ public class MapViewActivity extends MapActivity {
 		mv.setBuiltInZoomControls(true);
 		
 		addPoi.setOnClickListener(new OnClickListener() {
-
-
-			
 			@Override
 			public void onClick(View v) {
 
@@ -121,22 +119,6 @@ public class MapViewActivity extends MapActivity {
 		
 		
 		this.getMarkers();
-		/*
-		MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
-
-		mv.getOverlays().add(mapitemizedOverlay);
-
-		GeoPoint gp = new GeoPoint((int)(48.8531475*1E6), (int)(2.37215489999994*1E6));
-		
-		OverlayItem overlayItem = new OverlayItem(gp, "", "");
-		
-		mapitemizedOverlay.addOverlay(overlayItem);
-		
-		gp = new GeoPoint((int)(48.6531475*1E6), (int)(2.37215489999994*1E6));
-		
-		overlayItem = new OverlayItem(gp, "", "");
-		
-		mapitemizedOverlay.addOverlay(overlayItem);*/
 	}
 
 	@Override
@@ -200,14 +182,10 @@ public class MapViewActivity extends MapActivity {
 						int latitude = (int) (poi.getLatitude()*1E6);
 						int longitude = (int) (poi.getLongitude()*1E6);
 
-						OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
+						MyOverlayItem overlayItem = new MyOverlayItem(new GeoPoint(latitude,longitude),poi);
 						listMap[poi.getCategory()-1].addOverlay(overlayItem);
 
 					}
-
-
-
-
 				}else {
 
 					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
@@ -216,15 +194,12 @@ public class MapViewActivity extends MapActivity {
 
 						Log.d(Constants.LOG, "Add de 1 item");
 
-
 						int latitude = (int) (listpois.get(i).getLatitude()*1E6);
 
 						int longitude = (int) (listpois.get(i).getLongitude()*1E6);
 
-						OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
-
+						MyOverlayItem overlayItem = new MyOverlayItem(new GeoPoint(latitude,longitude),listpois.get(i));
 						mapitemizedOverlay.addOverlay(overlayItem);
-
 
 					}
 					mv.invalidate();
