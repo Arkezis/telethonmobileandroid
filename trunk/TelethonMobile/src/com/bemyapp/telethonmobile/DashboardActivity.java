@@ -107,15 +107,15 @@ public class DashboardActivity extends Activity implements
 	public class gridAdapter extends BaseAdapter {
 
 		private int[] listButton = new int[]{
-				R.drawable.coffee_icon,
-				R.drawable.health_icon,
-				R.drawable.hotel_icon,
-				R.drawable.restaurant_icon,
-				R.drawable.transport_icon,
-				R.drawable.coffee_icon,
-				R.drawable.health_icon,
-				R.drawable.hotel_icon,
-				R.drawable.restaurant_icon			
+				R.drawable.resto_on,
+				R.drawable.cafe_bar_on,
+				R.drawable.magasin_on,
+				R.drawable.cinema,
+				R.drawable.culture_on,
+				R.drawable.loisirs_on,
+				R.drawable.hotel_on,
+				R.drawable.sante_on,
+				R.drawable.transp_on			
 		};	
 
 		public int getCount() {return this.listButton.length;}
