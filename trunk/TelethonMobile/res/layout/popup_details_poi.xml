@@ -62,28 +62,34 @@
     	>
 			<TextView
 				android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
+				android:layout_width="wrap_content" 
 				android:id="@+id/poiVoteLabel" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
 				android:text="@+string/voteLabel"
 			/>
-
-<RatingBar
+					    	<LinearLayout 
+			android:layout_height="wrap_content" 
+			android:layout_width="fill_parent"     	    
+			android:orientation="horizontal"    	    
+			android:gravity="center"
+			android:layout_gravity="center"
+    	>
+			<RatingBar
 		    android:id="@+id/poiRatingBar"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:isIndicator="true"
 		    android:numStars="5" 
-	  	 	android:layout_alignParentLeft="true"
-	  	 	android:layout_centerVertical="true"
+		    android:layout_gravity="center"
+			    
+	  	 	android:gravity="center"
 	  	 	
 	  	 	style="?android:attr/ratingBarStyleSmall"
 	  	 	
 	  	 	
 		/>
-
+			</LinearLayout>
 		</LinearLayout>
     	    
 </LinearLayout>
