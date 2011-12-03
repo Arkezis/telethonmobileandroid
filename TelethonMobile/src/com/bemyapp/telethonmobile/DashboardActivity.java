@@ -1,13 +1,10 @@
 package com.bemyapp.telethonmobile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -20,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class DashboardActivity extends Activity implements
@@ -31,7 +27,7 @@ public class DashboardActivity extends Activity implements
 	TextToSpeech myTTs;
 	HashMap<String, String> myHashAlarm = new HashMap<String, String>();
 	public int selected;
-
+	Button bAll;
 
 	private String[] listMessage = new String[]{
 			"Restaurants" ,
@@ -71,14 +67,30 @@ public class DashboardActivity extends Activity implements
 			}
 			
 		});
+		bAll = (Button) findViewById(R.id.button1);
+		bAll.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				selected = -1;
+				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
+						String.valueOf(AudioManager.STREAM_ALARM));
+				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
+						"End Message");
+				myTTs.setOnUtteranceCompletedListener(DashboardActivity.this);
+				myTTs.speak("Toutes catégories", TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+			}
+		});
+		
 	}
 
 	@Override
 	public void onUtteranceCompleted(String uttId) {
 		if (uttId.equals("End Message")) {
+			myTTs.shutdown();
 			Intent i = new Intent(DashboardActivity.this, MapViewActivity.class);
 			i.putExtra("category", this.selected+1);
-			startActivity(i);
+			startActivity(i);			
 			finish();
 		}
 	}
@@ -121,4 +133,11 @@ public class DashboardActivity extends Activity implements
 		}
 	}
 
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		myTTs.shutdown();
+	}
 }
