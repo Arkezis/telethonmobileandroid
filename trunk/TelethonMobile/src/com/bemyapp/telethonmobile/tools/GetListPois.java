@@ -6,11 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bemyapp.telethonmobile.constants.Constants;
+
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class GetListPois extends AsyncTask<Void, Void, Void> {
 
 	private ArrayList<Poi> pois = null;
+
 	private final double latitude;
 	private final double longitude;
 	private final int range;
@@ -38,17 +42,22 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 			try {
 				JSONObject object = array.getJSONObject(i);
 				Poi poi = new Poi();
+				poi.setId(object.getInt("id"));
 				poi.setName(object.getString("nom"));
-				poi.setDistance(object.getLong("distance"));
 				poi.setCategory(object.getInt("cat"));
 				poi.setLongitude(object.getDouble("long"));
 				poi.setLatitude(object.getDouble("lat"));
 				pois.add(poi);
 
 			} catch (JSONException e) {
+				Log.e(Constants.LOG, "exception "+e.getMessage());
 			}
 		}
 		return null;
 	}
 
+	public ArrayList<Poi> getListPois() {
+		return pois;
+	}
+	
 }
