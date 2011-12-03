@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.bemyapp.telethonmobile.constants.Constants;
+import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
 import com.bemyapp.telethonmobile.tools.SaveNewPoi;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -31,11 +33,13 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
 
 	private Button addPoi;
 	private MyLocationOverlay myLocationOverlay;
+	MapView mv;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -46,7 +50,7 @@ public class MapViewActivity extends MapActivity {
 		addPoi = (Button) findViewById(R.id.addPOI);
 		addPoi.setVisibility(View.INVISIBLE);
 		
-		MapView mv = (MapView) findViewById(R.id.mapview);
+		this.mv = (MapView) findViewById(R.id.mapview);
 		mv.setBuiltInZoomControls(true);
 		
 		addPoi.setOnClickListener(new OnClickListener() {
@@ -101,7 +105,7 @@ public class MapViewActivity extends MapActivity {
 			}
 		});
 
-		this.myLocationOverlay = new MyLocationOverlay(getApplicationContext(), mv);
+		this.myLocationOverlay = new MyLocationOverlay(this, mv);
 		this.myLocationOverlay.enableMyLocation();
 		
 		this.myLocationOverlay.runOnFirstFix(new Runnable() {
@@ -111,6 +115,7 @@ public class MapViewActivity extends MapActivity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
+						mv.getController().animateTo(myLocationOverlay.getMyLocation());
 						addPoi.setVisibility(View.VISIBLE);
 					}
 				});
@@ -120,6 +125,19 @@ public class MapViewActivity extends MapActivity {
 		List<Overlay> listOfOverlays = mv.getOverlays();
 		listOfOverlays.clear();
 		listOfOverlays.add(this.myLocationOverlay);
+
+
+		
+		/*
+		
+		MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
+
+		mv.getOverlays().add(mapitemizedOverlay);
+		
+		OverlayItem overlayItem = new OverlayItem(MapViewActivity.this.myLocationOverlay.getMyLocation(), "", "");
+		
+		mapitemizedOverlay.addOverlay(overlayItem);
+		*/
 
 	}
 
