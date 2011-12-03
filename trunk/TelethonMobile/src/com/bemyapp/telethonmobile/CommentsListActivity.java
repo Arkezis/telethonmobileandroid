@@ -5,19 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bemyapp.telethonmobile.tools.Comment;
 import com.bemyapp.telethonmobile.tools.CommentAdapter;
 import com.bemyapp.telethonmobile.tools.GetListComments;
+import com.bemyapp.telethonmobile.tools.SaveNewComment;
 
 public class CommentsListActivity extends ListActivity {
 
@@ -49,29 +56,6 @@ public class CommentsListActivity extends ListActivity {
 		TextView adresseTV = (TextView) findViewById(R.id.adresse);
 		adresseTV.setText("");
 		if (latitude != null && longitude != null) {
-			// Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-			// try {
-			// List<Address> addresses = geocoder.getFromLocation(latitude,
-			// longitude, 1);
-			// if (addresses.size() > 0) {
-			// Address adress = addresses.get(0);
-			// String adresseString = "";
-			// int i = 0;
-			//
-			// String adresseLine = null;
-			// while ((adresseLine = adress.getAddressLine(i)) != null) {
-			// adresseString += adresseLine + "\n";
-			// i++;
-			// }
-			// adresseString += " - ";
-			// adresseString += adress.getCountryName();
-			//
-			// ;
-			// }
-			// } catch (IOException e) {
-			// }
-			;
-
 			Geocoder geoCoder = new Geocoder(getBaseContext(),
 					Locale.getDefault());
 			try {
@@ -86,8 +70,6 @@ public class CommentsListActivity extends ListActivity {
 					}
 				}
 				adresseTV.setText(add);
-				// Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT)
-				// .show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -122,6 +104,52 @@ public class CommentsListActivity extends ListActivity {
 				}
 			}
 		}.execute();
+
+		Button addCommentButton = (Button) findViewById(R.id.addComment);
+		addCommentButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final AlertDialog.Builder alert = new AlertDialog.Builder(
+						CommentsListActivity.this);
+				LayoutInflater inflater = getLayoutInflater();
+				final View body = inflater.inflate(R.layout.popup_new_comment,
+						null);
+				alert.setView(body);
+
+				int maxLength = 140;
+				InputFilter[] FilterArray = new InputFilter[1];
+				FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+				((EditText) body.findViewById(R.id.message))
+						.setFilters(FilterArray);
+				alert.setPositiveButton("Envoyer",
+
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						EditText et = (EditText) body
+								.findViewById(R.id.message);
+						RatingBar rb = (RatingBar) body
+								.findViewById(R.id.ratingBar);
+
+						new SaveNewComment(id, rb.getRating(), et.getText()
+								.toString()).execute();
+					}
+
+				});
+				alert.setNegativeButton("Annuler",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+				alert.show();
+
+			}
+		});
+
 	}
 
 	public void fillList() {

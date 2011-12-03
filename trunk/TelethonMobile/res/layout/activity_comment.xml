@@ -60,6 +60,7 @@
 		android:layout_height="wrap_content" 
 		android:layout_gravity="center_horizontal"
 		android:text="@+string/addComment"
+		android:id="@+id/addComment"
 	/>
 	<ListView
 		android:id="@android:id/list"
