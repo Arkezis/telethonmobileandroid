@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World!</string>
     <string name="app_name">TelethonMobile</string>
-
+    <string name="addPoiButton">Ajouter un lieu</string>
+        
 </resources>
