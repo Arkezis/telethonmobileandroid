@@ -1,8 +1,12 @@
 package com.bemyapp.telethonmobile;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,11 +24,14 @@ import android.widget.Button;
 
 import com.bemyapp.telethonmobile.constants.Constants;
 import com.bemyapp.telethonmobile.tools.JSONTools;
+import com.bemyapp.telethonmobile.tools.MyMapMarker;
+import com.bemyapp.telethonmobile.tools.Poi;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
 
@@ -32,6 +39,7 @@ public class MapViewActivity extends MapActivity {
 	private double longitude = -1;
 	private LocationManager lm = null;
 	private GeoPoint p = null;
+	private List<Poi> pois = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -44,10 +52,6 @@ public class MapViewActivity extends MapActivity {
 
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						MapViewActivity.this);
-				// builder.setView(arg0);
-				builder.show();
 			}
 		});
 
@@ -179,20 +183,49 @@ public class MapViewActivity extends MapActivity {
 			// ---add the marker---
 			Bitmap bmp = BitmapFactory.decodeResource(getResources(),
 					android.R.drawable.presence_online);
+
 			canvas.drawBitmap(bmp, screenPts.x, screenPts.y - 50, null);
 			return true;
 		}
 	}
 
 	private void getMarkers() {
+		final Context c = this;
+		final MapView mv = (MapView) findViewById(R.id.mapview);
+
+		final List<Overlay> mapOverlays = mv.getOverlays();
+		final MyMapMarker itemizedoverlay = new MyMapMarker(getResources()
+				.getDrawable(android.R.drawable.presence_away), this);
+		List<Overlay> listOfOverlays = mv.getOverlays();
+		listOfOverlays.clear();
+
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				System.err
-						.println(JSONTools
-								.getJSONfromURL("http://cilheo.fr/telethonMobile.php?action=list&lat=48.8531475&long=2.3721549&range=5"));
+				JSONArray array = JSONTools
+						.getJSONArrayfromURL("http://cilheo.fr/telethonMobile.php?action=list&lat=48.8531475&long=2.3721549&range=5");
+				ArrayList<Poi> poiTmps = new ArrayList<Poi>();
+				for (int i = 0; i < array.length(); i++) {
+					try {
+						JSONObject object = array.getJSONObject(i);
+						Poi poi = new Poi();
+						poi.setName(object.getString("nom"));
+						poi.setDistance(object.getLong("distance"));
+						poi.setCategory(object.getInt("cat"));
+						poi.setLongitude(object.getDouble("long"));
+						poi.setLatitude(object.getDouble("lat"));
+						poiTmps.add(poi);
+						OverlayItem overlayitem = new OverlayItem(p,
+								poi.getName(), "Distance = "
+										+ poi.getDistance());
+						itemizedoverlay.addOverlay(overlayitem);
+						mapOverlays.add(itemizedoverlay);
 
+					} catch (JSONException e) {
+					}
+				}
+				pois = poiTmps;
 				return null;
 			}
 

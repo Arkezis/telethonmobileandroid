@@ -40,6 +40,8 @@ public class DashboardActivity extends Activity implements
 				myTTs.speak("Restaurant", TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 			}
 		});
+
+		// startActivity(new Intent(this, MapViewActivity.class));
 	}
 
 	@Override
