@@ -4,11 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    	android:padding="10dp"    	    
+    
 >
     	<LinearLayout 
 			android:layout_height="wrap_content" 
 			android:layout_width="fill_parent"     	    
-			android:orientation="horizontal"    	    
+			android:orientation="horizontal"
     	>
 			<TextView
 				android:layout_height="wrap_content" 
@@ -19,14 +21,14 @@
 				android:layout_gravity="center_vertical"
 				android:text="@+string/poiNameLabel"
 			/>
-    		<EditText
+    		<TextView
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
 				android:layout_weight="1" 
-				android:id="@+id/poiName" 
+				android:id="@+id/poiNameText" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
-				
+				android:text="@+string/poiNameText"
 			/>
 		</LinearLayout>
     	<LinearLayout 
@@ -38,20 +40,50 @@
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
 				android:layout_weight="1" 
-				android:id="@+id/categoryLabel" 
+				android:id="@+id/poiCategoryLabel" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
 				android:text="@+string/categoryLabel"
 			/>
-		    <Spinner 
+		    <TextView
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
 				android:layout_weight="1" 
-				android:id="@+id/category" 
+				android:id="@+id/poiCategoryText" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
-				android:entries="@array/categories"
+				android:text="@+string/categoryLabel"
 			/>
+		</LinearLayout>
+		    	<LinearLayout 
+			android:layout_height="wrap_content" 
+			android:layout_width="fill_parent"     	    
+			android:orientation="horizontal"    	    
+    	>
+			<TextView
+				android:layout_height="wrap_content" 
+				android:layout_width="fill_parent" 
+				android:layout_weight="1" 
+				android:id="@+id/poiVoteLabel" 
+				android:gravity="center_vertical"
+				android:layout_gravity="center_vertical"
+				android:text="@+string/voteLabel"
+			/>
+
+<RatingBar
+		    android:id="@+id/poiRatingBar"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:isIndicator="true"
+		    android:numStars="5" 
+	  	 	android:layout_alignParentLeft="true"
+	  	 	android:layout_centerVertical="true"
+	  	 	
+	  	 	style="?android:attr/ratingBarStyleSmall"
+	  	 	
+	  	 	
+		/>
+
 		</LinearLayout>
     	    
 </LinearLayout>
