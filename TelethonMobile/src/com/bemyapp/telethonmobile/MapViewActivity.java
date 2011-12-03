@@ -150,8 +150,6 @@ public class MapViewActivity extends MapActivity {
 
 				Log.d(Constants.LOG, "size = "+listpois.size());
 
-				MapItemizedOverlay tmpMap = null;
-
 				Log.d(Constants.LOG, "Pouet"+catSelected);
 
 				while (mv.getOverlays().size()>1){
