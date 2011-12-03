@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapViewActivity" android:screenOrientation="portrait"></activity>
-            
+		<activity android:name=".CommentsListActivity" android:screenOrientation="portrait"></activity>
 	    <uses-library android:name="com.google.android.maps" />
     </application>
 
