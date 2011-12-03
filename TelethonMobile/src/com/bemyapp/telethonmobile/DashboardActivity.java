@@ -41,7 +41,7 @@ public class DashboardActivity extends Activity implements
 			}
 		});
 
-		// startActivity(new Intent(this, MapViewActivity.class));
+		startActivity(new Intent(this, MapViewActivity.class));
 	}
 
 	@Override
