@@ -26,7 +26,7 @@ public class CommentsListActivity extends ListActivity {
 	private Double latitude = null;
 	private Double longitude = null;
 	private int id = 0;
-	private float note = 0;
+	private Double note = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,7 +40,7 @@ public class CommentsListActivity extends ListActivity {
 			latitude = b.getDouble("latitude");
 			longitude = b.getDouble("longitude");
 			id = b.getInt("id");
-			note = b.getFloat("note");
+			note = b.getDouble("note");
 		}
 
 		TextView titleTV = (TextView) findViewById(R.id.title);
@@ -49,30 +49,51 @@ public class CommentsListActivity extends ListActivity {
 		TextView adresseTV = (TextView) findViewById(R.id.adresse);
 		adresseTV.setText("");
 		if (latitude != null && longitude != null) {
-			Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+			// Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+			// try {
+			// List<Address> addresses = geocoder.getFromLocation(latitude,
+			// longitude, 1);
+			// if (addresses.size() > 0) {
+			// Address adress = addresses.get(0);
+			// String adresseString = "";
+			// int i = 0;
+			//
+			// String adresseLine = null;
+			// while ((adresseLine = adress.getAddressLine(i)) != null) {
+			// adresseString += adresseLine + "\n";
+			// i++;
+			// }
+			// adresseString += " - ";
+			// adresseString += adress.getCountryName();
+			//
+			// ;
+			// }
+			// } catch (IOException e) {
+			// }
+			;
+
+			Geocoder geoCoder = new Geocoder(getBaseContext(),
+					Locale.getDefault());
 			try {
-				List<Address> addresses = geocoder.getFromLocation(latitude,
+				List<Address> addresses = geoCoder.getFromLocation(latitude,
 						longitude, 1);
+
+				String add = "";
 				if (addresses.size() > 0) {
-					Address adress = addresses.get(0);
-					String adresseString = "";
-					int i = 0;
-
-					String adresseLine = null;
-					while ((adresseLine = adress.getAddressLine(i)) != null) {
-						adresseString += adresseLine + "\n";
-						i++;
+					for (int i = 0; i < addresses.get(0)
+							.getMaxAddressLineIndex(); i++) {
+						add += addresses.get(0).getAddressLine(i) + "\n";
 					}
-					adresseString += " - ";
-					adresseString += adress.getCountryName();
-
-					;
 				}
+				adresseTV.setText(add);
+				// Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT)
+				// .show();
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 		RatingBar ratingTV = (RatingBar) findViewById(R.id.ratingBar);
-		ratingTV.setRating(note);
+		ratingTV.setRating(Float.parseFloat(note.toString()));
 
 		View v = LayoutInflater.from(this).inflate(R.layout.empty_screen, null,
 				false);
