@@ -77,7 +77,7 @@ public class DashboardActivity extends Activity implements
 	public void onUtteranceCompleted(String uttId) {
 		if (uttId.equals("End Message")) {
 			Intent i = new Intent(DashboardActivity.this, MapViewActivity.class);
-			i.putExtra("category", this.selected);
+			i.putExtra("category", this.selected+1);
 			startActivity(i);
 			finish();
 		}
