@@ -17,10 +17,10 @@ import com.bemyapp.telethonmobile.constants.Constants;
 public class SaveNewComment extends AsyncTask<Void, Void, Void> {
 
 	private final int id;
-	private final long note;
+	private final float note;
 	private final String comm;
 
-	public SaveNewComment(int _id, long _note, String _comm) {
+	public SaveNewComment(int _id, float _note, String _comm) {
 		this.id = _id;
 		this.note = _note;
 		this.comm = _comm;
