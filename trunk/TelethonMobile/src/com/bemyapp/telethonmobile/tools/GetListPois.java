@@ -38,7 +38,7 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 		}
 
 		JSONArray array = JSONTools.getJSONArrayfromURL(url);
-		for (int i = 0; i < array.length(); i++) {
+		for (int i = 0; array!=null &&  i < array.length(); i++) {
 			try {
 				JSONObject object = array.getJSONObject(i);
 				Poi poi = new Poi();

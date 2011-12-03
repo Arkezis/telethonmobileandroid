@@ -4,17 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,7 +23,6 @@ import com.bemyapp.telethonmobile.tools.Poi;
 import com.bemyapp.telethonmobile.tools.SaveNewPoi;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
@@ -170,76 +160,80 @@ public class MapViewActivity extends MapActivity {
 
 		GetListPois gpois = new GetListPois(mv.getMapCenter().getLatitudeE6()/1E6, mv.getMapCenter().getLongitudeE6()/1E6, 2, catSelected){
 
-		@Override
+			@Override
 
-		protected void onPostExecute(Void result) {
+			protected void onPostExecute(Void result) {
 
-		ArrayList<Poi> listpois = getListPois();
+				ArrayList<Poi> listpois = getListPois();
 
-		Log.d(Constants.LOG, "size = "+listpois.size());
+				Log.d(Constants.LOG, "size = "+listpois.size());
 
-		MapItemizedOverlay tmpMap = null;
+				MapItemizedOverlay tmpMap = null;
 
-		Log.d(Constants.LOG, "Pouet"+catSelected);
-		
-		while (mv.getOverlays().size()>1){
-			mv.getOverlays().remove(1);
-		}
-		
+				Log.d(Constants.LOG, "Pouet"+catSelected);
 
-		if (catSelected == 0) {
-
-		MapItemizedOverlay[] listMap = new MapItemizedOverlay[]{
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_away), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_busy), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_invisible), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_online), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-			new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this)	
-		};
-			
-		for (Poi poi : listpois){
-			
-			int latitude = (int) (poi.getLatitude()*1E6);
-			int longitude = (int) (poi.getLongitude()*1E6);
-
-			OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
-			listMap[poi.getCategory()-1].addOverlay(overlayItem);
-			
-		}
-		
-		
-			
-
-		}else {
-
-			MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
-			mv.getOverlays().add(mapitemizedOverlay);
-		for (int i = 0; i < listpois.size(); i++) {
-
-		Log.d(Constants.LOG, "Add de 1 item");
+				while (mv.getOverlays().size()>1){
+					mv.getOverlays().remove(1);
+				}
 
 
-		int latitude = (int) (listpois.get(i).getLatitude()*1E6);
+				if (catSelected == 0) {
 
-		int longitude = (int) (listpois.get(i).getLongitude()*1E6);
+					MapItemizedOverlay[] listMap = new MapItemizedOverlay[]{
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_away), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_busy), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_invisible), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_online), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this)	
+					};
 
-		OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
+					for(int i=0;i<9;i++){
+						mv.getOverlays().add(listMap[i]);
+					}
+					
+					for (Poi poi : listpois){
 
-		mapitemizedOverlay.addOverlay(overlayItem);
+						int latitude = (int) (poi.getLatitude()*1E6);
+						int longitude = (int) (poi.getLongitude()*1E6);
+
+						OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
+						listMap[poi.getCategory()-1].addOverlay(overlayItem);
+
+					}
 
 
-		}
-		mv.invalidate();
-		
 
 
-		}
+				}else {
 
-		}
+					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
+					mv.getOverlays().add(mapitemizedOverlay);
+					for (int i = 0; i < listpois.size(); i++) {
+
+						Log.d(Constants.LOG, "Add de 1 item");
+
+
+						int latitude = (int) (listpois.get(i).getLatitude()*1E6);
+
+						int longitude = (int) (listpois.get(i).getLongitude()*1E6);
+
+						OverlayItem overlayItem = new OverlayItem(new GeoPoint(latitude,longitude), "", "");
+
+						mapitemizedOverlay.addOverlay(overlayItem);
+
+
+					}
+					mv.invalidate();
+
+
+
+				}
+
+			}
 
 		};
 

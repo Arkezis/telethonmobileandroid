@@ -11,7 +11,7 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	android:clickable="true"
-    	android:apiKey="0C7oYd_j_cY6osK7j_u0p679LeFUA_c3b7tKPfQ"
+    	android:apiKey="0C-L1kxCLowLwr_lqWOXzR73IsvThaWFiBIY1XQ"
     	android:layout_above="@+id/addPOI"
 	/>
 	
