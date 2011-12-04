@@ -82,7 +82,7 @@ public class DashboardActivity extends Activity implements
 	public void onUtteranceCompleted(String uttId) {
 		if (uttId.equals("End Message")) {
 			myTTs.shutdown();
-			Intent i = new Intent(DashboardActivity.this, MapViewActivity.class);
+			Intent i = new Intent(DashboardActivity.this, ListpoiActivity.class);
 			i.putExtra("category", this.selected);
 			startActivity(i);
 			finish();
