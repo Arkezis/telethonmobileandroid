@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
    	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
 >
-
+	<com.bemyapp.telethonmobile.view.ActionBar
+		android:id="@+id/actionBar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+	/>
+    
 	<com.google.android.maps.MapView
     	android:id="@+id/mapview"
     	android:layout_width="fill_parent"
@@ -14,15 +20,5 @@
     	android:apiKey="0C7oYd_j_cY5Rwf_ZMnCGq2SZD6Ch40zC-uiHmw"
 
 	/>
-	
-	<Button 
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-		android:id="@+id/addPOI"		    
-		android:layout_alignParentBottom="true"
-		android:text="@+string/addPoiButton"
-		android:layout_centerInParent="true"
-		android:layout_margin="10dp"
-	/>
-    
-</RelativeLayout>
+	    
+</LinearLayout>

@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/iphone_fond" >
+    android:background="@drawable/iphone_fond" 
+>
+    
+	<RelativeLayout 
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	>
+		<com.bemyapp.telethonmobile.view.ActionBar
+			android:id="@+id/actionBar"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+    	<GridView
+        	android:id="@+id/gridView1"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_below="@+id/actionBar"
+        	android:layout_above="@+id/button1"
+        	android:layout_centerHorizontal="true"
+        	android:layout_marginBottom="20dp"
+        	android:numColumns="3" >
+        	<!-- Preview: listitem=@android:layout/simple_list_item_2 -->
+    	</GridView>
 
-
-
-    <GridView
-        android:id="@+id/gridView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:numColumns="3" >
-        <!-- Preview: listitem=@android:layout/simple_list_item_2 -->
-    </GridView>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="80dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/tout" />
-</RelativeLayout>
+	    <Button
+    	    android:id="@+id/button1"
+        	android:layout_width="wrap_content"
+        	android:layout_height="80dip"
+        	android:layout_alignParentBottom="true"
+        	android:layout_centerHorizontal="true"
+        	android:text=""
+        	android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
+        	android:layout_marginBottom="5dp"
+        	android:background="@drawable/tout" />
+	</RelativeLayout>
+</LinearLayout>
