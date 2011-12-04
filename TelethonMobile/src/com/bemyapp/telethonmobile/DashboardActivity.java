@@ -46,13 +46,13 @@ public class DashboardActivity extends Activity implements
 	
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				selected = arg2;
+				selected = arg2+1;
 				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
 						String.valueOf(AudioManager.STREAM_ALARM));
 				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
 						"End Message");
 				myTTs.setOnUtteranceCompletedListener(DashboardActivity.this);
-				myTTs.speak(Category.getCategory(arg2).name, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+				myTTs.speak(Category.getCategory(selected).name, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 				
 			}
 			
@@ -79,7 +79,7 @@ public class DashboardActivity extends Activity implements
 		if (uttId.equals("End Message")) {
 			myTTs.shutdown();
 			Intent i = new Intent(DashboardActivity.this, MapViewActivity.class);
-			i.putExtra("category", this.selected+1);
+			i.putExtra("category", this.selected);
 			startActivity(i);			
 			finish();
 		}
@@ -105,7 +105,7 @@ public class DashboardActivity extends Activity implements
             if (convertView == null) {
             	convertView = getLayoutInflater().inflate(R.layout.activity_dashboard_button, null);
             }
-            ((ImageView) convertView).setImageResource(Category.getCategory(position).drawable);
+            ((ImageView) convertView).setImageResource(Category.getCategory(position+1).drawable);
             return convertView;
 		}
 	}
