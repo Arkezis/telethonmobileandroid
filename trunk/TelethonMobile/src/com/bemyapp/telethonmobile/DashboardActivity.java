@@ -100,7 +100,7 @@ public class DashboardActivity extends Activity implements
 
 		@Override
 		public int getCount() {
-			return Category.values().length;
+			return Category.values().length-1;
 		}
 
 		@Override
