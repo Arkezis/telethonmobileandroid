@@ -29,6 +29,7 @@
     	    android:layout_marginBottom="20dp"
     	    android:layout_marginTop="20dp"
     	    android:horizontalSpacing="7dp"
+    	    android:verticalSpacing="7dp"
     	    android:numColumns="3" >
 
         	<!-- Preview: listitem=@android:layout/simple_list_item_2 -->
