@@ -6,13 +6,13 @@ public enum Category {
 
 	TOUT(0,-1,-1,"Toutes catégories"),
 	RESTAURANT(1,R.drawable.resto_on,R.drawable.resto_poi,"Restaurants"),
-	CAFE(2,R.drawable.cafe_bar_on,R.drawable.cafe_bar_poi,"Cafe Bar"),
+	CAFE(2,R.drawable.cafe_bar_on,R.drawable.cafe_bar_poi,"Café Bar"),
 	MAGASIN(3,R.drawable.magasin_on,R.drawable.magasin_poi,"Magasins"),
-	CINEMA(4,R.drawable.cinema,R.drawable.cinema_poi,"Cinema"),
+	CINEMA(4,R.drawable.cinema,R.drawable.cinema_poi,"Cinéma"),
 	CULTURE(5,R.drawable.culture_on,R.drawable.culture_poi,"Culture"),
 	LOISIR(6,R.drawable.loisirs_on,R.drawable.loisirs_poi,"Loisirs"),
 	HOTEL(7,R.drawable.hotel_on,R.drawable.hotel_poi,"Hotel"),
-	SANTE(8,R.drawable.sante_on,R.drawable.sante_poi,"Sante"),
+	SANTE(8,R.drawable.sante_on,R.drawable.sante_poi,"Santé"),
 	TRANSPORT(9,R.drawable.transp_on,R.drawable.transp_poi,"Transport");
 
 	public int number;
