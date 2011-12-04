@@ -121,6 +121,7 @@ public class DashboardActivity extends Activity implements
 		
 		SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         int typeHandi = pref.getInt("TYPE_HANDI", -1);
+
 		if(typeHandi==-1){ // pas de type de handicap séléectionné
         	showChange();
         }
@@ -130,7 +131,7 @@ public class DashboardActivity extends Activity implements
 	public void onUtteranceCompleted(String uttId) {
 		if (uttId.equals("End Message")) {
 			myTTs.shutdown();
-			Intent i = new Intent(DashboardActivity.this, ListpoiActivity.class);
+			Intent i = new Intent(DashboardActivity.this, MapViewActivity.class);
 			i.putExtra("category", this.selected);
 			startActivity(i);
 		}
@@ -144,7 +145,6 @@ public class DashboardActivity extends Activity implements
     	builder.setTitle("Votre type de handicap ?");       
     	builder.setSingleChoiceItems(adapt, typeHandi, new DialogInterface.OnClickListener() {
     	    public void onClick(DialogInterface dialog, int item) {
-    	        Toast.makeText(getApplicationContext(), item+" "+item, Toast.LENGTH_SHORT).show();
             	SharedPreferences.Editor editor = pref.edit();
                 editor.putInt("TYPE_HANDI", item);
                 editor.commit();
