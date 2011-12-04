@@ -5,4 +5,9 @@
         <item name="android:minHeight">22dip</item>
         <item name="android:maxHeight">22dip</item>
     </style>
+    	<style name = "mainActivity" parent="android:Theme">
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:screenOrientation">portrait</item>
+	</style>
+        
 </resources>

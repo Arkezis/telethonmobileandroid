@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bemyapp.telethonmobile.constants.Category;
+import com.bemyapp.telethonmobile.view.ActionBar;
 
 public class DashboardActivity extends Activity implements
 		TextToSpeech.OnInitListener, OnUtteranceCompletedListener {
@@ -35,6 +36,8 @@ public class DashboardActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
 
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
+		actionBar.setTitle("TéléthonMobile");
 		myTTs = new TextToSpeech(this, this);
 
 		GridView gridview = (GridView) this.findViewById(R.id.gridView1);
