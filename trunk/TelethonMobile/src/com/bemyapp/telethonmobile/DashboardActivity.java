@@ -1,10 +1,9 @@
 package com.bemyapp.telethonmobile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
-
-import com.bemyapp.telethonmobile.constants.Constants;
-import com.bemyapp.telethonmobile.tools.IconAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,8 +11,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.util.Log;
@@ -22,7 +24,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -31,35 +32,46 @@ import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.bemyapp.telethonmobile.constants.Category;
+import com.bemyapp.telethonmobile.constants.Constants;
+import com.bemyapp.telethonmobile.tools.IconAdapter;
 import com.bemyapp.telethonmobile.view.ActionBar;
+import com.bemyapp.telethonmobile.view.MyObserver;
+import com.bemyapp.telethonmobile.view.MySurfaceView;
 
 public class DashboardActivity extends Activity implements
 		TextToSpeech.OnInitListener, OnUtteranceCompletedListener {
 	/** Called when the activity is first created. */
+	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
 	TextToSpeech myTTs;
 	HashMap<String, String> myHashAlarm = new HashMap<String, String>();
 	public int selected;
 	Button bAll;
-
-	private String[] listMessage = new String[]{
-			"Restaurants" ,
-			"CafÃ© Bar" ,
-			"Magasins" ,
-			"CinÃ©ma" ,
-			"Culture" ,
-			"Loisirs" ,
-			"Hotel" ,
-			"SantÃ©" ,
-			"Transport"};
+	private String[] listMessage = new String[] { "Restaurants", "CafÃ© Bar",
+			"Magasins", "CinÃ©ma", "Culture", "Loisirs", "Hotel", "SantÃ©",
+			"Transport" };
 	AlertDialog.Builder builder = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
+		MySurfaceView msv = (MySurfaceView) findViewById(R.id.surface);
+		msv.disableAllLongClick(msv);
+
+		msv.setObserver(new MyObserver() {
+
+			@Override
+			public void onChange() {
+				launchVoice();
+			}
+		});
 
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
-		actionBar.setTitle("TÃ©lÃ©thonMobile");
+		actionBar.setTitle("TéléthonMobile");
+		actionBar.setActionDrawable(getResources().getDrawable(
+				R.drawable.rouage));
+		actionBar.showActionButton(true);
+
 		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.rouage));
 		actionBar.showActionButton(true);
 	
@@ -202,4 +214,77 @@ public class DashboardActivity extends Activity implements
 		myTTs.shutdown();
 	}
 
+	private void launchVoice() {
+
+		PackageManager pm = getPackageManager();
+		List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
+				RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+		if (activities.size() != 0) {
+
+			// Specify the calling package to identify your application
+			Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+			// Display an hint to the user about what he should say.
+			intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+					"Speech recognition demo");
+
+			// Given an hint to the recognizer about what the user is going to
+			// say
+			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+					RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
+			// Specify how many results you want to receive. The results will be
+			// sorted
+			// where the first result is the one with higher confidence.
+			intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+
+			// Specify the recognition language. This parameter has to be
+			// specified
+			// only if the
+			// recognition has to be done in a specific language and not the
+			// default
+			// one (i.e., the
+			// system locale). Most of the applications do not have to set this
+			// parameter.
+
+			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+
+		} else {
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == VOICE_RECOGNITION_REQUEST_CODE
+				&& resultCode == RESULT_OK) {
+			// Fill the list view with the strings the recognizer thought it
+			// could have heard
+			ArrayList<String> matches = data
+					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+			for (String s : matches) {
+				for (Category cat : Category.values()) {
+					if (s.toUpperCase().equals(cat.name())) {
+						Toast.makeText(
+								getApplicationContext(),
+								"La categorie " + cat.name() + " a été demandé",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+
+				// if (Category.valueOf(s.toUpperCase()) != null) {
+				Log.e(Constants.LOG, "string detected = " + s);
+				// Toast.makeText(getApplicationContext(), "La catégorie " + s
+				// + " a été demandé", Toast.LENGTH_SHORT);
+				// } else
+				if (s.equals("aide")) {
+					Toast.makeText(getApplicationContext(),
+							"Une demande d'aide a été demandé",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 }

@@ -5,10 +5,17 @@
         android:endColor="#8ba4a7"
         android:angle="270"
      />-->
+<!--
     <gradient 
         android:startColor="#28559e" 
-        android:endColor="#5585D8"
+        title_background_clair="#5585D8"
         android:angle="270"
+     />-->
+     
+	<gradient 
+	    android:type="linear"
+        android:startColor="@color/title_background_clair" 
+        title_background_clair="@color/title_background_fonce"
      />
     <corners android:radius="0dp" />
 </shape>
