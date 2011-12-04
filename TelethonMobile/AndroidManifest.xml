@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".MapViewActivity" android:screenOrientation="portrait" android:theme="@style/mainActivity" ></activity>
 		<activity android:name=".CommentsListActivity" android:screenOrientation="portrait" android:theme="@style/mainActivity"></activity>
-		<activity android:name=".ListpoiActivity" android:screenOrientation="portrait"></activity>
+		<activity android:name=".ListpoiActivity" android:screenOrientation="portrait" android:theme="@style/mainActivity"></activity>
 	    <uses-library android:name="com.google.android.maps" />
     </application>
 

@@ -1,6 +1,7 @@
 package com.bemyapp.telethonmobile;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -12,27 +13,43 @@ import com.bemyapp.telethonmobile.tools.GetListPois;
 import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
 import com.bemyapp.telethonmobile.tools.MyOverlayItem;
 import com.bemyapp.telethonmobile.tools.Poi;
+import com.bemyapp.telethonmobile.view.ActionBar;
 import com.google.android.maps.GeoPoint;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+
 public class ListpoiActivity extends Activity {
 
 	public ListView listPOI;
 	public int catSelected;
+	
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent kEvent) {
+		if (keycode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keycode, kEvent);
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,9 +58,36 @@ public class ListpoiActivity extends Activity {
 
 		this.catSelected = this.getIntent().getExtras().getInt("category", 0);
 		
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
+		actionBar.setTitle("TéléthonMobile - "+Category.getCategory(catSelected));
+		
+		
+		
 		this.listPOI = (ListView) this.findViewById(R.id.listView1);
+		
 		final listPOIAdapter listAdapter = new listPOIAdapter();
 		listPOI.setAdapter(listAdapter);
+
+		listPOI.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				Intent intent = new Intent(ListpoiActivity.this,
+						CommentsListActivity.class);
+				Poi item = listAdapter.listPoi[arg2];
+				
+				intent.putExtra("title", item.getName());
+				intent.putExtra("latitude", item.getLatitude());
+				intent.putExtra("longitude", item.getLongitude());
+				intent.putExtra("id", item.getId());
+				intent.putExtra("note", item.getNote());
+				ListpoiActivity.this.startActivity(intent);
+			}
+			
+		});
+
+		
+		
 		
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -103,7 +147,7 @@ public class ListpoiActivity extends Activity {
 	
 	public class listPOIAdapter extends BaseAdapter {
 
-		private Poi[] listPoi = new Poi[]{};
+		public Poi[] listPoi = new Poi[]{};
 		public Location userLocation;
 		public Location firstUserLocation;
 		

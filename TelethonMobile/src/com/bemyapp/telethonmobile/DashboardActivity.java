@@ -37,7 +37,7 @@ public class DashboardActivity extends Activity implements
 		setContentView(R.layout.activity_dashboard);
 
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
-		actionBar.setTitle("TÈlÈthonMobile");
+		actionBar.setTitle("T√©l√©thonMobile");
 		myTTs = new TextToSpeech(this, this);
 
 		GridView gridview = (GridView) this.findViewById(R.id.gridView1);
@@ -71,7 +71,7 @@ public class DashboardActivity extends Activity implements
 				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
 						"End Message");
 				myTTs.setOnUtteranceCompletedListener(DashboardActivity.this);
-				myTTs.speak("Toutes cat√©gories", TextToSpeech.QUEUE_FLUSH,
+				myTTs.speak(Category.TOUT.name, TextToSpeech.QUEUE_FLUSH,
 						myHashAlarm);
 			}
 		});
@@ -85,7 +85,6 @@ public class DashboardActivity extends Activity implements
 			Intent i = new Intent(DashboardActivity.this, ListpoiActivity.class);
 			i.putExtra("category", this.selected);
 			startActivity(i);
-			finish();
 		}
 	}
 
