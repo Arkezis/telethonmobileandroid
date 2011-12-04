@@ -26,12 +26,17 @@ public class ActionBar extends LinearLayout {
 	}
 
 	public void setTitle(String title) {
-		TextView titleTV = (TextView) findViewById(R.id.title);
+		TextView titleTV = (TextView) findViewById(R.id.titleActionBar);
 		titleTV.setText(title);
 	}
 
 	public void setActionDrawable(Drawable imageAction) {
 		ImageButton ib = (ImageButton) findViewById(R.id.btn_title_action);
+		ib.setImageDrawable(imageAction);
+	}
+
+	public void setAction2Drawable(Drawable imageAction) {
+		ImageButton ib = (ImageButton) findViewById(R.id.btn_title_action2);
 		ib.setImageDrawable(imageAction);
 	}
 
@@ -55,6 +60,19 @@ public class ActionBar extends LinearLayout {
 
 	public ImageButton getActionButton() {
 		return (ImageButton) findViewById(R.id.btn_title_action);
+	}
+
+	public void showAction2Button(boolean activated) {
+		ImageButton ib = (ImageButton) findViewById(R.id.btn_title_action2);
+		if (activated) {
+			ib.setVisibility(View.VISIBLE);
+		} else {
+			ib.setVisibility(View.GONE);
+		}
+	}
+
+	public ImageButton getAction2Button() {
+		return (ImageButton) findViewById(R.id.btn_title_action2);
 	}
 
 }
