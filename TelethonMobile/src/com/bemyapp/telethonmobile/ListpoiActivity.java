@@ -56,13 +56,24 @@ public class ListpoiActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details_poi);
 
+		
 		this.catSelected = this.getIntent().getExtras().getInt("category", 0);
 		
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
 		actionBar.setTitle("TéléthonMobile - "+Category.getCategory(catSelected));
+		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.map));
+		actionBar.showActionButton(true);
 		
-		
-		
+		actionBar.getActionButton().setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(ListpoiActivity.this, MapViewActivity.class);
+				i.putExtra("category", catSelected);
+				startActivity(i);
+				finish();
+			}
+		});
 		this.listPOI = (ListView) this.findViewById(R.id.listView1);
 		
 		final listPOIAdapter listAdapter = new listPOIAdapter();

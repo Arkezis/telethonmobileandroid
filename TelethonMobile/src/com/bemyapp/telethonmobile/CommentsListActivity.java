@@ -58,6 +58,7 @@ public class CommentsListActivity extends ListActivity {
 		ActionBar ab = (ActionBar) findViewById(R.id.actionBar);
 		ab.setTitle(title);
 
+
 		TextView adresseTV = (TextView) findViewById(R.id.adresse);
 		adresseTV.setText("");
 		if (latitude != null && longitude != null) {
@@ -112,6 +113,7 @@ public class CommentsListActivity extends ListActivity {
 
 		// Button addCommentButton = (Button) findViewById(R.id.addComment);
 		ImageButton addCommentButton = ab.getActionButton();
+		ab.setActionDrawable(getResources().getDrawable(R.drawable.plus));
 		ab.showActionButton(true);
 		addCommentButton.setOnClickListener(new OnClickListener() {
 			@Override
