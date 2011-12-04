@@ -12,42 +12,46 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import com.bemyapp.telethonmobile.constants.Category;
 import com.bemyapp.telethonmobile.constants.Constants;
 import com.bemyapp.telethonmobile.tools.GetListPois;
 import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
 import com.bemyapp.telethonmobile.tools.MyOverlayItem;
 import com.bemyapp.telethonmobile.tools.Poi;
 import com.bemyapp.telethonmobile.tools.SaveNewPoi;
+import com.bemyapp.telethonmobile.view.ActionBar;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
 
-	private Button addPoi;
+	private ImageButton addPoi;
 	private MyLocationOverlay myLocationOverlay;
 	MapView mv;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		final String errorMessage = getString(R.string.errorLabelEmpty);
-		addPoi = (Button) findViewById(R.id.addPOI);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
+		actionBar.setTitle("TelethonMobile");
+		// addPoi = (Button) findViewById(R.id.addPOI);
+		// actionBar.setActionDrawable(getResources().getDrawable(
+		// android.R.drawable.));
+		addPoi = actionBar.getActionButton();
 		addPoi.setVisibility(View.INVISIBLE);
-		
+
 		this.mv = (MapView) findViewById(R.id.mapview);
 		mv.setBuiltInZoomControls(true);
-		
+
 		addPoi.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -60,31 +64,30 @@ public class MapViewActivity extends MapActivity {
 				alert.setView(body);
 				alert.setPositiveButton("Créer",
 
-						new DialogInterface.OnClickListener() {
+				new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								EditText et = (EditText) body
-										.findViewById(R.id.poiName);
-								final String name = et.getText().toString();
-								if (name == null || name.equals("")) {
-									AlertDialog.Builder builder = new AlertDialog.Builder(
-											MapViewActivity.this);
-									builder.setMessage(errorMessage);
-									builder.show();
-								}
-								Spinner sp = (Spinner) body
-										.findViewById(R.id.category);
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						EditText et = (EditText) body
+								.findViewById(R.id.poiName);
+						final String name = et.getText().toString();
+						if (name == null || name.equals("")) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(
+									MapViewActivity.this);
+							builder.setMessage(errorMessage);
+							builder.show();
+						}
+						Spinner sp = (Spinner) body.findViewById(R.id.category);
 
-								final int categoryId = sp
-										.getSelectedItemPosition() + 1;
+						final int categoryId = sp.getSelectedItemPosition() + 1;
 
-								new SaveNewPoi(name, categoryId, myLocationOverlay.getMyLocation().getLatitudeE6()/1E6,
-										myLocationOverlay.getMyLocation().getLongitudeE6()/1E6).execute();
-							}
+						new SaveNewPoi(name, categoryId, myLocationOverlay
+								.getMyLocation().getLatitudeE6() / 1E6,
+								myLocationOverlay.getMyLocation()
+										.getLongitudeE6() / 1E6).execute();
+					}
 
-						});
+				});
 				alert.setNegativeButton("Annuler",
 						new DialogInterface.OnClickListener() {
 
@@ -99,27 +102,26 @@ public class MapViewActivity extends MapActivity {
 
 		this.myLocationOverlay = new MyLocationOverlay(this, mv);
 		this.myLocationOverlay.enableMyLocation();
-		
+
 		this.myLocationOverlay.runOnFirstFix(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						mv.getController().animateTo(myLocationOverlay.getMyLocation());
-						mv.getController().setZoom(17);
+						mv.getController().animateTo(
+								myLocationOverlay.getMyLocation());
 						addPoi.setVisibility(View.VISIBLE);
 					}
 				});
 			}
 		});
-		
+
 		List<Overlay> listOfOverlays = mv.getOverlays();
 		listOfOverlays.clear();
 		listOfOverlays.add(this.myLocationOverlay);
-		
-		
+
 		this.getMarkers();
 	}
 
@@ -140,70 +142,93 @@ public class MapViewActivity extends MapActivity {
 
 	private void getMarkers() {
 
-		final int catSelected = this.getIntent().getExtras().getInt("category", 0);
+		final int catSelected = this.getIntent().getExtras()
+				.getInt("category", 0);
 
-		GetListPois gpois = new GetListPois(mv.getMapCenter().getLatitudeE6()/1E6, mv.getMapCenter().getLongitudeE6()/1E6, 2, catSelected){
+		GetListPois gpois = new GetListPois(
+				mv.getMapCenter().getLatitudeE6() / 1E6, mv.getMapCenter()
+						.getLongitudeE6() / 1E6, 2, catSelected) {
 
 			@Override
-
 			protected void onPostExecute(Void result) {
 
 				ArrayList<Poi> listpois = getListPois();
 
-				Log.d(Constants.LOG, "size = "+listpois.size());
+				Log.d(Constants.LOG, "size = " + listpois.size());
 
-				Log.d(Constants.LOG, "Pouet"+catSelected);
+				Log.d(Constants.LOG, "Pouet" + catSelected);
 
-				while (mv.getOverlays().size()>1){
+				while (mv.getOverlays().size() > 1) {
 					mv.getOverlays().remove(1);
 				}
-				
+
 				if (catSelected == 0) {
 
-					MapItemizedOverlay[] listMap = new MapItemizedOverlay[]{
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(1).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(2).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(3).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(4).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(5).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(6).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(7).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(8).poiDrawable), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(9).poiDrawable), MapViewActivity.this)	
-					};
+					MapItemizedOverlay[] listMap = new MapItemizedOverlay[] {
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_offline),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_away),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_busy),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_invisible),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_online),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_offline),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_offline),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_offline),
+									MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(
+									android.R.drawable.presence_offline),
+									MapViewActivity.this) };
 
-					for(int i=0;i<9;i++){
+					for (int i = 0; i < 9; i++) {
 						mv.getOverlays().add(listMap[i]);
 					}
-					
-					for (Poi poi : listpois){
 
-						int latitude = (int) (poi.getLatitude()*1E6);
-						int longitude = (int) (poi.getLongitude()*1E6);
+					for (Poi poi : listpois) {
 
-						MyOverlayItem overlayItem = new MyOverlayItem(new GeoPoint(latitude,longitude),poi);
-						listMap[poi.getCategory()-1].addOverlay(overlayItem);
+						int latitude = (int) (poi.getLatitude() * 1E6);
+						int longitude = (int) (poi.getLongitude() * 1E6);
+
+						MyOverlayItem overlayItem = new MyOverlayItem(
+								new GeoPoint(latitude, longitude), poi);
+						listMap[poi.getCategory() - 1].addOverlay(overlayItem);
 
 					}
-				}else {
+				} else {
 
-					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(catSelected).poiDrawable), MapViewActivity.this);
+					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(
+							getResources().getDrawable(
+									android.R.drawable.presence_offline),
+							MapViewActivity.this);
 					mv.getOverlays().add(mapitemizedOverlay);
 					for (int i = 0; i < listpois.size(); i++) {
 
 						Log.d(Constants.LOG, "Add de 1 item");
 
-						int latitude = (int) (listpois.get(i).getLatitude()*1E6);
+						int latitude = (int) (listpois.get(i).getLatitude() * 1E6);
 
-						int longitude = (int) (listpois.get(i).getLongitude()*1E6);
+						int longitude = (int) (listpois.get(i).getLongitude() * 1E6);
 
-						MyOverlayItem overlayItem = new MyOverlayItem(new GeoPoint(latitude,longitude),listpois.get(i));
+						MyOverlayItem overlayItem = new MyOverlayItem(
+								new GeoPoint(latitude, longitude),
+								listpois.get(i));
 						mapitemizedOverlay.addOverlay(overlayItem);
 
 					}
 					mv.invalidate();
-
-
 
 				}
 
@@ -213,14 +238,16 @@ public class MapViewActivity extends MapActivity {
 
 		gpois.execute();
 	}
-	public boolean onKeyDown(int keycode, KeyEvent kEvent){
-		if(keycode == KeyEvent.KEYCODE_BACK){
-			Intent i = new Intent(MapViewActivity.this,DashboardActivity.class);
+
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent kEvent) {
+		if (keycode == KeyEvent.KEYCODE_BACK) {
+			Intent i = new Intent(MapViewActivity.this, DashboardActivity.class);
 			startActivity(i);
 			finish();
 			return true;
 		}
 		return super.onKeyDown(keycode, kEvent);
 	}
-	
+
 }
