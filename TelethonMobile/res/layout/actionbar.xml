@@ -19,6 +19,7 @@
 		android:layout_height="wrap_content"   		    
 		android:layout_width="wrap_content"   		    
 		android:id="@+id/progressBlock"
+       	android:visibility="gone"
    	>
 		<ImageButton 
 		    style="@style/TitleBarAction"
@@ -40,6 +41,7 @@
 		android:id="@+id/btn_title_action"
 		android:layout_gravity="center"
        	android:background="#00000000"
+       	android:visibility="gone"
 	/>
     
 </LinearLayout>
