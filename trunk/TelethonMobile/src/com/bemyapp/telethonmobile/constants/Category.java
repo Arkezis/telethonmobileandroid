@@ -4,6 +4,7 @@ import com.bemyapp.telethonmobile.R;
 
 public enum Category {
 
+	TOUT(0,-1,-1,"Toutes catégories"),
 	RESTAURANT(1,R.drawable.resto_on,R.drawable.resto_poi,"Restaurants"),
 	CAFE(2,R.drawable.cafe_bar_on,R.drawable.cafe_bar_poi,"Café Bar"),
 	MAGASIN(3,R.drawable.magasin_on,R.drawable.magasin_poi,"Magasins"),
@@ -35,7 +36,8 @@ public enum Category {
 		if (LOISIR.number == number) return LOISIR;
 		if (HOTEL.number == number) return HOTEL;
 		if (SANTE.number == number) return SANTE;
-		return TRANSPORT;
+		if (TRANSPORT.number == number) return TRANSPORT;
+		return TOUT;
 	}
 	
 }
