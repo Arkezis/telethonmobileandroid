@@ -242,8 +242,6 @@ public class MapViewActivity extends MapActivity {
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent kEvent) {
 		if (keycode == KeyEvent.KEYCODE_BACK) {
-			Intent i = new Intent(MapViewActivity.this, DashboardActivity.class);
-			startActivity(i);
 			finish();
 			return true;
 		}
