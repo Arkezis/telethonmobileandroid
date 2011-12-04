@@ -11,8 +11,8 @@
     <ListView
         android:id="@+id/listView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#000000" >
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000">
         <!-- Preview: listitem=@layout/popup_details_poi -->
     </ListView>
 

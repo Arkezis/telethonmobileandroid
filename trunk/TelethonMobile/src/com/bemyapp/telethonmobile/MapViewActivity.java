@@ -37,6 +37,7 @@ public class MapViewActivity extends MapActivity {
 	private MyLocationOverlay myLocationOverlay;
 	MapView mv;
 	private int catSelected;
+	private static boolean seen = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -67,7 +68,8 @@ public class MapViewActivity extends MapActivity {
 		// actionBar.setActionDrawable(getResources().getDrawable(
 		// android.R.drawable.));
 		addPoi = actionBar.getAction2Button();
-		addPoi.setVisibility(View.INVISIBLE);
+		if (!seen)
+		addPoi.setVisibility(View.GONE);
 
 		this.mv = (MapView) findViewById(R.id.mapview);
 		mv.setBuiltInZoomControls(true);
@@ -133,6 +135,7 @@ public class MapViewActivity extends MapActivity {
 						mv.getController().animateTo(
 								myLocationOverlay.getMyLocation());
 						addPoi.setVisibility(View.VISIBLE);
+						seen = true;
 					}
 				});
 			}
@@ -152,8 +155,7 @@ public class MapViewActivity extends MapActivity {
 
 	@Override
 	protected void onPause() {
-		super.onPause();
-	}
+super.onPause();	}
 
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -181,36 +183,36 @@ public class MapViewActivity extends MapActivity {
 				while (mv.getOverlays().size() > 1) {
 					mv.getOverlays().remove(1);
 				}
-
-				if (catSelected == 0) {
+				
+				if (catSelected < 0) {
 
 					MapItemizedOverlay[] listMap = new MapItemizedOverlay[] {
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(1).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_away),
+									Category.getCategory(2).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_busy),
+									Category.getCategory(3).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_invisible),
+									Category.getCategory(4).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_online),
+									Category.getCategory(5).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(6).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(7).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(8).poiDrawable),
 									MapViewActivity.this),
 							new MapItemizedOverlay(getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(9).poiDrawable),
 									MapViewActivity.this) };
 
 					for (int i = 0; i < 9; i++) {
@@ -228,10 +230,10 @@ public class MapViewActivity extends MapActivity {
 
 					}
 				} else {
-
+					
 					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(
 							getResources().getDrawable(
-									android.R.drawable.presence_offline),
+									Category.getCategory(catSelected).poiDrawable),
 							MapViewActivity.this);
 					mv.getOverlays().add(mapitemizedOverlay);
 					for (int i = 0; i < listpois.size(); i++) {
