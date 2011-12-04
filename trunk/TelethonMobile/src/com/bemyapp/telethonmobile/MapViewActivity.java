@@ -187,7 +187,7 @@ public class MapViewActivity extends MapActivity {
 					}
 				}else {
 
-					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(catSelected-1).poiDrawable), MapViewActivity.this);
+					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(catSelected).poiDrawable), MapViewActivity.this);
 					mv.getOverlays().add(mapitemizedOverlay);
 					for (int i = 0; i < listpois.size(); i++) {
 

@@ -12,7 +12,7 @@
     	android:layout_height="fill_parent"
     	android:clickable="true"
     	android:apiKey="0C7oYd_j_cY5Rwf_ZMnCGq2SZD6Ch40zC-uiHmw"
-    	android:layout_above="@+id/addPOI"
+
 	/>
 	
 	<Button 
