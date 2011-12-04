@@ -6,7 +6,6 @@
 	<TextView 
 		style="@style/TitleBarText"
 		android:id="@+id/title"
-		android:text="tete"
 	/>
 
 	<View 
