@@ -8,4 +8,5 @@
    	<string name="errorLabelEmpty">Veuillez renseigner un nom svp.</string>
    	<string name="addComment">Ajoutez un nouveau commentaire.</string>
    	<string name="voteLabel">Note :</string>
+   	<string name="distanceLabel">Distance</string>
 </resources>
