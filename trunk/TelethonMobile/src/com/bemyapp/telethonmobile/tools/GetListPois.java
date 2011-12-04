@@ -31,7 +31,7 @@ public class GetListPois extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		pois = new ArrayList<Poi>();
-		String url = "http://cilheo.fr/telethonMobile.php?action=list&lat="
+		String url = "http://cilheo.fr/telethonMobileTrunk.php?action=list&lat="
 				+ latitude + "&long=" + longitude + "&range=" + range;
 		if (category > 0) {
 			url += "&category=" + category;

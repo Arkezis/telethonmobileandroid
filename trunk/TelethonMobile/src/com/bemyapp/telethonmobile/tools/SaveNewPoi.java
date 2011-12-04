@@ -35,7 +35,7 @@ public class SaveNewPoi extends AsyncTask<Void, Void, Void> {
 
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
-			String url = "http://cilheo.fr/telethonMobile.php?action=insert&nom="
+			String url = "http://cilheo.fr/telethonMobileTrunk.php?action=insert&nom="
 					+ URLEncoder.encode(name, "UTF-8")
 					+ "&cat="
 					+ category

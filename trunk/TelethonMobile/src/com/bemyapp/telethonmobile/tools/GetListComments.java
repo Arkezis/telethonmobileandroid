@@ -20,7 +20,7 @@ public class GetListComments extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		comments = new ArrayList<Comment>();
-		String url = "http://cilheo.fr/telethonMobile.php?action=getNote&id="
+		String url = "http://cilheo.fr/telethonMobileTrunk.php?action=getNote&id="
 				+ id;
 
 		JSONArray array = JSONTools.getJSONArrayfromURL(url);

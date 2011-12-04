@@ -32,7 +32,7 @@ public class SaveNewComment extends AsyncTask<Void, Void, Void> {
 
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
-			String url = "http://cilheo.fr/telethonMobile.php?action=insertNote&id="
+			String url = "http://cilheo.fr/telethonMobileTrunk.php?action=insertNote&id="
 					+ id
 					+ "&note="
 					+ note
