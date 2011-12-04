@@ -15,8 +15,10 @@
     limitations under the License.
 -->
 <resources>
-    <color name="title_background">#ff355689</color>
-    <color name="title_background_old">#ff355689</color>
+<!--     <color name="title_background">#ff355689</color>
+ -->    <color name="title_background_clair">#65b9e9</color>
+   	<color name="title_background_fonce">#0f75bb</color>
+	<color name="title_background_old">#ff355689</color>
     <color name="title_separator">#40ffffff</color>
     <color name="title_text">#ffffffff</color>
     

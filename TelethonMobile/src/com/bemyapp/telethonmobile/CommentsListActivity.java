@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import com.bemyapp.telethonmobile.tools.Comment;
 import com.bemyapp.telethonmobile.tools.CommentAdapter;
 import com.bemyapp.telethonmobile.tools.GetListComments;
 import com.bemyapp.telethonmobile.tools.SaveNewComment;
+import com.bemyapp.telethonmobile.view.ActionBar;
 
 public class CommentsListActivity extends ListActivity {
 
@@ -53,8 +55,8 @@ public class CommentsListActivity extends ListActivity {
 			note = b.getDouble("note");
 		}
 
-		TextView titleTV = (TextView) findViewById(R.id.title);
-		titleTV.setText(title);
+		ActionBar ab = (ActionBar) findViewById(R.id.actionBar);
+		ab.setTitle(title);
 
 		TextView adresseTV = (TextView) findViewById(R.id.adresse);
 		adresseTV.setText("");
@@ -108,7 +110,9 @@ public class CommentsListActivity extends ListActivity {
 			}
 		}.execute();
 
-		Button addCommentButton = (Button) findViewById(R.id.addComment);
+		// Button addCommentButton = (Button) findViewById(R.id.addComment);
+		ImageButton addCommentButton = ab.getActionButton();
+		ab.showActionButton(true);
 		addCommentButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -153,17 +157,21 @@ public class CommentsListActivity extends ListActivity {
 		});
 		Button goTo = (Button) this.findViewById(R.id.goTo);
 		goTo.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				if(add!=null){
-					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q="+add));
-					startActivity(i);	
+				if (add != null) {
+					Intent i = new Intent(Intent.ACTION_VIEW, Uri
+							.parse("google.navigation:q=" + add));
+					startActivity(i);
 				}
 			}
 		});
-		if(add==null)		goTo.setVisibility(0);
-		else 				goTo.setVisibility(1);
+		if (add == null) {
+			goTo.setVisibility(0);
+		} else {
+			goTo.setVisibility(1);
+		}
 	}
 
 	public void fillList() {
