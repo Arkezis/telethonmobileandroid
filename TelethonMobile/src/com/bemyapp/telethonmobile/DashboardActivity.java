@@ -3,6 +3,8 @@ package com.bemyapp.telethonmobile;
 import java.util.HashMap;
 import java.util.Locale;
 
+import com.bemyapp.telethonmobile.constants.Category;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -28,18 +30,6 @@ public class DashboardActivity extends Activity implements
 	HashMap<String, String> myHashAlarm = new HashMap<String, String>();
 	public int selected;
 	Button bAll;
-
-	private String[] listMessage = new String[]{
-			"Restaurants" ,
-			"Café Bar" ,
-			"Magasins" ,
-			"Cinéma" ,
-			"Culture" ,
-			"Loisirs" ,
-			"Hotel" ,
-			"Santé" ,
-			"Transport"};
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +52,7 @@ public class DashboardActivity extends Activity implements
 				myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
 						"End Message");
 				myTTs.setOnUtteranceCompletedListener(DashboardActivity.this);
-				myTTs.speak(listMessage[arg2], TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+				myTTs.speak(Category.getCategory(arg2).name, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 				
 			}
 			
@@ -97,7 +87,6 @@ public class DashboardActivity extends Activity implements
 
 	@Override
 	public void onInit(int status) {
-		// TODO Auto-generated method stub
 		Locale loc = new Locale("fr", "", "");
 		if (myTTs.isLanguageAvailable(loc) >= TextToSpeech.LANG_AVAILABLE) {
 			myTTs.setLanguage(loc);
@@ -106,20 +95,8 @@ public class DashboardActivity extends Activity implements
 	
 	public class gridAdapter extends BaseAdapter {
 
-		private int[] listButton = new int[]{
-				R.drawable.resto_on,
-				R.drawable.cafe_bar_on,
-				R.drawable.magasin_on,
-				R.drawable.cinema,
-				R.drawable.culture_on,
-				R.drawable.loisirs_on,
-				R.drawable.hotel_on,
-				R.drawable.sante_on,
-				R.drawable.transp_on			
-		};	
-
-		public int getCount() {return this.listButton.length;}
-		public Object getItem(int position) {return this.listButton[position];}
+		public int getCount() {return Category.values().length;}
+		public Object getItem(int position) {return Category.values()[position];}
 		public long getItemId(int position) {return position;}
 		@Override
 		
@@ -128,7 +105,7 @@ public class DashboardActivity extends Activity implements
             if (convertView == null) {
             	convertView = getLayoutInflater().inflate(R.layout.activity_dashboard_button, null);
             }
-            ((ImageView) convertView).setImageResource(this.listButton[position]);
+            ((ImageView) convertView).setImageResource(Category.getCategory(position).drawable);
             return convertView;
 		}
 	}
