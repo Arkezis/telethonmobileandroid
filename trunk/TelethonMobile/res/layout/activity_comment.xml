@@ -64,13 +64,6 @@
 			android:text="@+string/goTo"
 			android:id="@+id/goTo"
 		/>
-		<Button 
-		 	android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:layout_gravity="center_horizontal"
-			android:text="@+string/addComment"
-			android:id="@+id/addComment"
-		/>	
 	</LinearLayout>
 
 	<ListView

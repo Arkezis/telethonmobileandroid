@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.bemyapp.telethonmobile.constants.Category;
 import com.bemyapp.telethonmobile.constants.Constants;
 import com.bemyapp.telethonmobile.tools.GetListPois;
 import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
@@ -34,6 +36,7 @@ public class MapViewActivity extends MapActivity {
 	private ImageButton addPoi;
 	private MyLocationOverlay myLocationOverlay;
 	MapView mv;
+	private int catSelected;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,10 +46,27 @@ public class MapViewActivity extends MapActivity {
 		final String errorMessage = getString(R.string.errorLabelEmpty);
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
 		actionBar.setTitle("TelethonMobile");
+		this.catSelected = this.getIntent().getExtras().getInt("category", 0);
+
+		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.liste));
+		actionBar.showActionButton(true);
+		actionBar.getActionButton().setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MapViewActivity.this, ListpoiActivity.class);
+				i.putExtra("category", catSelected);
+				startActivity(i);
+				finish();
+			}
+		});
+		actionBar.setAction2Drawable(getResources().getDrawable(R.drawable.plus));
+		actionBar.showAction2Button(true);
+		
 		// addPoi = (Button) findViewById(R.id.addPOI);
 		// actionBar.setActionDrawable(getResources().getDrawable(
 		// android.R.drawable.));
-		addPoi = actionBar.getActionButton();
+		addPoi = actionBar.getAction2Button();
 		addPoi.setVisibility(View.INVISIBLE);
 
 		this.mv = (MapView) findViewById(R.id.mapview);

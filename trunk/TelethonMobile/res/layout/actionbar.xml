@@ -43,6 +43,7 @@
 		android:layout_gravity="center"
        	android:background="#00000000"
        	android:visibility="gone"
+       	android:scaleType="fitCenter"
 	/>
 
 	<ImageView 
@@ -54,6 +55,7 @@
 		android:layout_gravity="center"
        	android:background="#00000000"
        	android:visibility="gone"
+       	android:scaleType="fitCenter"
 	/>
 	
 </LinearLayout>

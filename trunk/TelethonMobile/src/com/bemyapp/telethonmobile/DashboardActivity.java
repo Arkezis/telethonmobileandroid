@@ -52,7 +52,7 @@ public class DashboardActivity extends Activity implements
 			"Hotel" ,
 			"Santé" ,
 			"Transport"};
-
+	AlertDialog.Builder builder = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +60,9 @@ public class DashboardActivity extends Activity implements
 
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
 		actionBar.setTitle("TéléthonMobile");
+		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.rouage));
+		actionBar.showActionButton(true);
+	
 		myTTs = new TextToSpeech(this, this);
 
 		GridView gridview = (GridView) this.findViewById(R.id.gridView1);
@@ -97,23 +100,18 @@ public class DashboardActivity extends Activity implements
 						myHashAlarm);
 			}
 		});
-		final SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+		actionBar.getActionButton().setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showChange();
+			}
+		});
+		
+		SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         int typeHandi = pref.getInt("TYPE_HANDI", -1);
-		final ListAdapter adapt = new IconAdapter(DashboardActivity.this, R.layout.list_image_item,typeHandi);
-        if(typeHandi==-1){ // pas de type de handicap séléectionné
-        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        	builder.setTitle("Votre type de handicap ?");       
-        	builder.setSingleChoiceItems(adapt, typeHandi, new DialogInterface.OnClickListener() {
-        	    public void onClick(DialogInterface dialog, int item) {
-        	        Toast.makeText(getApplicationContext(), item+" "+item, Toast.LENGTH_SHORT).show();
-                	SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt("TYPE_HANDI", item);
-                    editor.commit();
-        	        dialog.cancel();
-        	    }
-        	});
-        	AlertDialog alert = builder.create();
-        	alert.show();
+		if(typeHandi==-1){ // pas de type de handicap séléectionné
+        	showChange();
         }
 	}
 
@@ -127,6 +125,26 @@ public class DashboardActivity extends Activity implements
 		}
 	}
 
+	private void showChange(){
+		final SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        int typeHandi = pref.getInt("TYPE_HANDI", -1);
+		final ListAdapter adapt = new IconAdapter(DashboardActivity.this, R.layout.list_image_item,typeHandi);
+		builder = new AlertDialog.Builder(this);
+    	builder.setTitle("Votre type de handicap ?");       
+    	builder.setSingleChoiceItems(adapt, typeHandi, new DialogInterface.OnClickListener() {
+    	    public void onClick(DialogInterface dialog, int item) {
+    	        Toast.makeText(getApplicationContext(), item+" "+item, Toast.LENGTH_SHORT).show();
+            	SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("TYPE_HANDI", item);
+                editor.commit();
+    	        dialog.cancel();
+    	    }
+    	});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+	
+	}
+	
 	@Override
 	public void onInit(int status) {
 		Locale loc = new Locale("fr", "", "");
@@ -164,6 +182,7 @@ public class DashboardActivity extends Activity implements
 		}
 	}
 
+	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
