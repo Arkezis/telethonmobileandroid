@@ -63,7 +63,6 @@ public class DashboardActivity extends Activity implements
 		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.rouage));
 		actionBar.showActionButton(true);
 	
-		myTTs = new TextToSpeech(this, this);
 
 		GridView gridview = (GridView) this.findViewById(R.id.gridView1);
 		gridview.setAdapter(new gridAdapter());
@@ -182,6 +181,19 @@ public class DashboardActivity extends Activity implements
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		myTTs.shutdown();
+		super.onPause();
+	}
+	
+	@Override
+	protected void onResume() {
+		
+		myTTs = new TextToSpeech(this, this);
+
+		super.onResume();
+	}
 	
 	@Override
 	protected void onDestroy() {
