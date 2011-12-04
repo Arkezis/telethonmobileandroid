@@ -3,21 +3,32 @@ package com.bemyapp.telethonmobile;
 import java.util.HashMap;
 import java.util.Locale;
 
+import com.bemyapp.telethonmobile.constants.Constants;
+import com.bemyapp.telethonmobile.tools.IconAdapter;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.bemyapp.telethonmobile.constants.Category;
 import com.bemyapp.telethonmobile.view.ActionBar;
@@ -30,6 +41,17 @@ public class DashboardActivity extends Activity implements
 	HashMap<String, String> myHashAlarm = new HashMap<String, String>();
 	public int selected;
 	Button bAll;
+
+	private String[] listMessage = new String[]{
+			"Restaurants" ,
+			"Café Bar" ,
+			"Magasins" ,
+			"Cinéma" ,
+			"Culture" ,
+			"Loisirs" ,
+			"Hotel" ,
+			"Santé" ,
+			"Transport"};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +97,24 @@ public class DashboardActivity extends Activity implements
 						myHashAlarm);
 			}
 		});
-
+		final SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        int typeHandi = pref.getInt("TYPE_HANDI", -1);
+		final ListAdapter adapt = new IconAdapter(DashboardActivity.this, R.layout.list_image_item,typeHandi);
+        if(typeHandi==-1){ // pas de type de handicap séléectionné
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setTitle("Votre type de handicap ?");       
+        	builder.setSingleChoiceItems(adapt, typeHandi, new DialogInterface.OnClickListener() {
+        	    public void onClick(DialogInterface dialog, int item) {
+        	        Toast.makeText(getApplicationContext(), item+" "+item, Toast.LENGTH_SHORT).show();
+                	SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("TYPE_HANDI", item);
+                    editor.commit();
+        	        dialog.cancel();
+        	    }
+        	});
+        	AlertDialog alert = builder.create();
+        	alert.show();
+        }
 	}
 
 	@Override

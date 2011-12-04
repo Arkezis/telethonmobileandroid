@@ -9,8 +9,10 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ public class CommentsListActivity extends ListActivity {
 	private Double longitude = null;
 	private int id = 0;
 	private Double note = null;
+	private String add;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -62,7 +65,7 @@ public class CommentsListActivity extends ListActivity {
 				List<Address> addresses = geoCoder.getFromLocation(latitude,
 						longitude, 1);
 
-				String add = "";
+				add = "";
 				if (addresses.size() > 0) {
 					for (int i = 0; i < addresses.get(0)
 							.getMaxAddressLineIndex(); i++) {
@@ -135,7 +138,6 @@ public class CommentsListActivity extends ListActivity {
 						new SaveNewComment(id, rb.getRating(), et.getText()
 								.toString()).execute();
 					}
-
 				});
 				alert.setNegativeButton("Annuler",
 						new DialogInterface.OnClickListener() {
@@ -149,7 +151,19 @@ public class CommentsListActivity extends ListActivity {
 
 			}
 		});
-
+		Button goTo = (Button) this.findViewById(R.id.goTo);
+		goTo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(add!=null){
+					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q="+add));
+					startActivity(i);	
+				}
+			}
+		});
+		if(add==null)		goTo.setVisibility(0);
+		else 				goTo.setVisibility(1);
 	}
 
 	public void fillList() {

@@ -61,14 +61,28 @@
 	        	    
 	    
 	</RelativeLayout>
-
-	<Button 
-	 	android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:layout_gravity="center_horizontal"
-		android:text="@+string/addComment"
-		android:id="@+id/addComment"
-	/>
+	 <LinearLayout 
+	        android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+    		android:orientation="horizontal" 
+    		android:id="@+id/titleLayout"
+    		android:layout_toLeftOf="@+id/ratingBar"
+    		android:paddingBottom="15dp">
+		<Button 
+		 	android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_gravity="center_horizontal"
+			android:text="@+string/goTo"
+			android:id="@+id/goTo"
+		/>
+		<Button 
+		 	android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_gravity="center_horizontal"
+			android:text="@+string/addComment"
+			android:id="@+id/addComment"
+		/>	
+	</LinearLayout>
 	<ListView
 		android:id="@android:id/list"
 	 	android:layout_width="fill_parent"
