@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.bemyapp.telethonmobile.constants.Category;
 import com.bemyapp.telethonmobile.constants.Constants;
 import com.bemyapp.telethonmobile.tools.GetListPois;
 import com.bemyapp.telethonmobile.tools.MapItemizedOverlay;
@@ -107,6 +108,7 @@ public class MapViewActivity extends MapActivity {
 					@Override
 					public void run() {
 						mv.getController().animateTo(myLocationOverlay.getMyLocation());
+						mv.getController().setZoom(17);
 						addPoi.setVisibility(View.VISIBLE);
 					}
 				});
@@ -155,32 +157,19 @@ public class MapViewActivity extends MapActivity {
 				while (mv.getOverlays().size()>1){
 					mv.getOverlays().remove(1);
 				}
-
-				
-				int[] listDrawable = new int[]{
-						R.drawable.resto_poi,
-						R.drawable.cafe_bar_poi,
-						R.drawable.magasin_poi,
-						R.drawable.cinema_poi,
-						R.drawable.culture_poi,
-						R.drawable.loisirs_poi,
-						R.drawable.hotel_poi,
-						R.drawable.sante_poi,
-						R.drawable.transp_poi	
-				};
 				
 				if (catSelected == 0) {
 
 					MapItemizedOverlay[] listMap = new MapItemizedOverlay[]{
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[0]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[1]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[2]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[3]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[4]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[5]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[6]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[7]), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(listDrawable[8]), MapViewActivity.this)	
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(1).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(2).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(3).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(4).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(5).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(6).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(7).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(8).poiDrawable), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(9).poiDrawable), MapViewActivity.this)	
 					};
 
 					for(int i=0;i<9;i++){
@@ -198,7 +187,7 @@ public class MapViewActivity extends MapActivity {
 					}
 				}else {
 
-					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(listDrawable[catSelected-1]), MapViewActivity.this);
+					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(Category.getCategory(catSelected-1).poiDrawable), MapViewActivity.this);
 					mv.getOverlays().add(mapitemizedOverlay);
 					for (int i = 0; i < listpois.size(); i++) {
 
