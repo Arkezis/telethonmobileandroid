@@ -156,19 +156,31 @@ public class MapViewActivity extends MapActivity {
 					mv.getOverlays().remove(1);
 				}
 
-
+				
+				int[] listDrawable = new int[]{
+						R.drawable.resto_poi,
+						R.drawable.cafe_bar_poi,
+						R.drawable.magasin_poi,
+						R.drawable.cinema_poi,
+						R.drawable.culture_poi,
+						R.drawable.loisirs_poi,
+						R.drawable.hotel_poi,
+						R.drawable.sante_poi,
+						R.drawable.transp_poi	
+				};
+				
 				if (catSelected == 0) {
 
 					MapItemizedOverlay[] listMap = new MapItemizedOverlay[]{
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_away), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_busy), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_invisible), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_online), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this),
-							new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this)	
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[0]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[1]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[2]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[3]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[4]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[5]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[6]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[7]), MapViewActivity.this),
+							new MapItemizedOverlay(getResources().getDrawable(listDrawable[8]), MapViewActivity.this)	
 					};
 
 					for(int i=0;i<9;i++){
@@ -186,7 +198,7 @@ public class MapViewActivity extends MapActivity {
 					}
 				}else {
 
-					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(android.R.drawable.presence_offline), MapViewActivity.this);
+					MapItemizedOverlay mapitemizedOverlay = new MapItemizedOverlay(getResources().getDrawable(listDrawable[catSelected-1]), MapViewActivity.this);
 					mv.getOverlays().add(mapitemizedOverlay);
 					for (int i = 0; i < listpois.size(); i++) {
 
