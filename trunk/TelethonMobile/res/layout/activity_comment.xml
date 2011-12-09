@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
+    android:background="@color/bg_general"
 >
 	<com.bemyapp.telethonmobile.view.ActionBar
 		android:id="@+id/actionBar"
@@ -30,7 +31,7 @@
 			    android:id="@+id/adresse"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-				android:textColor="#FFFFFFFF"		    
+				android:textColor="@color/gris"
 				android:text="adresse"		    
 				android:textSize="20sp"		    
 			/>
@@ -43,10 +44,8 @@
 		    android:numStars="5" 
 	  	 	android:layout_alignParentRight="true"
 	  	 	android:layout_centerVertical="true"
-	  	 	style="?android:attr/ratingBarStyleSmall"
 	  	 	
-	  	 	
-		/>
+	  	 	style="@style/starRatingBar" 	/>
 	        	    
 	    
 	</RelativeLayout>

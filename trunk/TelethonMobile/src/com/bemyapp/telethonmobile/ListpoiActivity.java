@@ -60,7 +60,7 @@ public class ListpoiActivity extends Activity {
 		this.catSelected = this.getIntent().getExtras().getInt("category", 0);
 		
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
-		actionBar.setTitle("TéléthonMobile - "+Category.getCategory(catSelected));
+		actionBar.setTitle(Category.getCategory(catSelected)+"");
 		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.map));
 		actionBar.showActionButton(true);
 		
@@ -221,10 +221,9 @@ public class ListpoiActivity extends Activity {
 			TextView nameText = (TextView) convertView.findViewById(R.id.poiNameText);
 			nameText.setText(item.getName());
 			
-			LinearLayout ly = (LinearLayout) convertView.findViewById(R.id.lydistance);
-			ly.setVisibility(LinearLayout.VISIBLE);
 			TextView distanceText = (TextView) convertView.findViewById(R.id.distanceTextView);
-			
+			distanceText.setVisibility(LinearLayout.VISIBLE);
+
 			if (userLocation != null) {
 				float[] distanceResult = new float[3];
 				Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),

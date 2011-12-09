@@ -46,15 +46,15 @@ public class MapViewActivity extends MapActivity {
 		setContentView(R.layout.activity_map);
 		final String errorMessage = getString(R.string.errorLabelEmpty);
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
-		actionBar.setTitle("TelethonMobile");
 		this.catSelected = this.getIntent().getExtras().getInt("category", 0);
+		actionBar.setTitle(Category.getCategory(catSelected)+"");
 
 		actionBar.setActionDrawable(getResources().getDrawable(R.drawable.liste));
 		actionBar.showActionButton(true);
 		actionBar.getActionButton().setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+		public void onClick(View v) {
 				Intent i = new Intent(MapViewActivity.this, ListpoiActivity.class);
 				i.putExtra("category", catSelected);
 				startActivity(i);
