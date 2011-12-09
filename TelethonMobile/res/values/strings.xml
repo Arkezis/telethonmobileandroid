@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <string name="app_name">TelethonMobile</string>
+    <string name="app_name">TéléthonMobile</string>
     <string name="addPoiButton">Ajouter un lieu</string>
     <string name="all_category">Toutes</string>
     <string name="poiNameLabel">Nom :</string>
     <string name="categoryLabel">Catégorie :</string>
-   	<string name="errorLabelEmpty">Veuillez renseigner un nom svp.</string>
-   	<string name="addComment">Ajoutez un nouveau commentaire.</string>
-   	<string name="goTo">M\'y rendre !</string>
-   	<string name="voteLabel">Note :</string>
-   	<string name="distanceLabel">Distance</string>
+    <string name="errorLabelEmpty">Veuillez renseigner un nom svp.</string>
+    <string name="addComment">Ajoutez un nouveau commentaire.</string>
+    <string name="goTo">M\'y rendre !</string>
+    <string name="voteLabel">Note :</string>
+    <string name="distanceLabel">Distance</string>
 </resources>

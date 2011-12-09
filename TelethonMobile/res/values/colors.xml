@@ -21,5 +21,11 @@
 	<color name="title_background_old">#ff355689</color>
     <color name="title_separator">#40ffffff</color>
     <color name="title_text">#ffffffff</color>
-    
+    <color name="bleu_fonce">#004082</color>
+    <color name="bleu_clair">#26B3E8</color>
+    <color name="gris">#4D4D4C</color>
+        <color name="bg_general">#ffffff</color>
+        
+        
+        
 </resources>

@@ -16,7 +16,7 @@
 		    android:id="@+id/comments"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-			android:textColor="#FFFFFFFF"		    
+			android:textColor="@color/gris"
 		/>
     </LinearLayout>
 	<RatingBar
@@ -27,8 +27,7 @@
 	    android:numStars="5" 
   	 	android:layout_alignParentRight="true"
   	 	android:layout_centerVertical="true"
-  	 	style="?android:attr/ratingBarStyleSmall"
-	/>
+	  	 	style="@style/starRatingBar" 	/>
 	        	    
 	    
 </RelativeLayout>

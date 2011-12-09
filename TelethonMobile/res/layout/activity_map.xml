@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
+        android:background="@color/bg_general"
 >
 	<com.bemyapp.telethonmobile.view.ActionBar
 		android:id="@+id/actionBar"
@@ -17,7 +18,7 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	android:clickable="true"
-    	android:apiKey="0C7oYd_j_cY5Rwf_ZMnCGq2SZD6Ch40zC-uiHmw"
+    	android:apiKey="0C-L1kxCLowLwr_lqWOXzR73IsvThaWFiBIY1XQ"
 
 	/>
 	    

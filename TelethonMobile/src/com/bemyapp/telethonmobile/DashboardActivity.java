@@ -67,7 +67,7 @@ public class DashboardActivity extends Activity implements
 		});
 
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
-		actionBar.setTitle("TéléthonMobile");
+		actionBar.setTitle(getResources().getString(R.string.app_name)+"");
 		actionBar.setActionDrawable(getResources().getDrawable(
 				R.drawable.rouage));
 		actionBar.showActionButton(true);
@@ -267,19 +267,19 @@ public class DashboardActivity extends Activity implements
 					if (s.toUpperCase().equals(cat.name())) {
 						Toast.makeText(
 								getApplicationContext(),
-								"La categorie " + cat.name() + " a été demandé",
+								"La categorie " + cat.name() + " a ï¿½tï¿½ demandï¿½",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
 
 				// if (Category.valueOf(s.toUpperCase()) != null) {
 				Log.e(Constants.LOG, "string detected = " + s);
-				// Toast.makeText(getApplicationContext(), "La catégorie " + s
-				// + " a été demandé", Toast.LENGTH_SHORT);
+				// Toast.makeText(getApplicationContext(), "La catï¿½gorie " + s
+				// + " a ï¿½tï¿½ demandï¿½", Toast.LENGTH_SHORT);
 				// } else
 				if (s.equals("aide")) {
 					Toast.makeText(getApplicationContext(),
-							"Une demande d'aide a été demandé",
+							"Une demande d'aide a ï¿½tï¿½ demandï¿½",
 							Toast.LENGTH_SHORT).show();
 				}
 			}

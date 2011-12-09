@@ -5,115 +5,62 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     	android:padding="10dp"    	    
-    
+    android:background="@color/bg_general"
 >
 
-    	<LinearLayout 
-			android:layout_height="wrap_content" 
-			android:layout_width="fill_parent"     	    
-			android:orientation="horizontal"
-    	>
-			<TextView
-				android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
-				android:id="@+id/poiNameLabel" 
-				android:gravity="center_vertical"
-				android:layout_gravity="center_vertical"
-				android:text="@+string/poiNameLabel"
-			/>
-    		<TextView
-				android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
-				android:id="@+id/poiNameText" 
-				android:gravity="right"
-				android:layout_gravity="center_vertical"
-				android:text="@+string/poiNameText"
-			/>
-		</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/poiNameText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:gravity="left"
+            android:text="@+string/poiNameText"
+            android:textColor="@color/bleu_fonce" 
+            android:textStyle="bold"/>
+
+        <RatingBar
+            android:id="@+id/poiRatingBar"
+            style="@style/starRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+        	
+            android:isIndicator="true"
+            android:numStars="5" />
+    </LinearLayout>
+    
     	<LinearLayout 
 			android:layout_height="wrap_content" 
 			android:layout_width="fill_parent"     	    
 			android:orientation="horizontal"    	    
     	>
-			<TextView
-				android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
-				android:id="@+id/poiCategoryLabel" 
-				android:gravity="center_vertical"
-				android:layout_gravity="center_vertical"
-				android:text="@+string/categoryLabel"
-			/>
 		    <TextView
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
 				android:layout_weight="1" 
 				android:id="@+id/poiCategoryText" 
-				android:gravity="right"
+				android:gravity="left"
 				android:layout_gravity="center_vertical"
 				android:text="@+string/categoryLabel"
+				android:textColor="@color/gris"
 			/>
-		</LinearLayout>
-		    	<LinearLayout 
-			android:layout_height="wrap_content" 
-			android:layout_width="fill_parent"     	    
-			android:orientation="horizontal"    	    
-    	>
-			<TextView
-				android:layout_height="wrap_content" 
-				android:layout_width="wrap_content" 
-				android:id="@+id/poiVoteLabel" 
-				android:gravity="center_vertical"
-				android:layout_gravity="center_vertical"
-				android:text="@+string/voteLabel"
-			/>
-					    	<LinearLayout 
-			android:layout_height="wrap_content" 
-			android:layout_width="fill_parent"     	    
-			android:orientation="horizontal"    	    
-			android:gravity="right"
-			android:layout_gravity="center"
-    	>
-			<RatingBar
-		    android:id="@+id/poiRatingBar"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:isIndicator="true"
-		    android:numStars="5" 
-		    android:layout_gravity="right"
-
-	  	 	style="?android:attr/ratingBarStyleSmall"
-	  	 	
-	  	 	
-		/>
-			</LinearLayout>
-		</LinearLayout>
-
-		    	<LinearLayout
-		    	    android:layout_width="fill_parent"
-		    	    android:layout_height="wrap_content"
-		    	    android:orientation="horizontal" 
-		    	    android:visibility="gone"
-		    	    android:id="@+id/lydistance">
-
-		    	    <TextView
-		    	        android:id="@+id/TextView02"
-		    	        android:layout_width="fill_parent"
-		    	        android:layout_height="wrap_content"
-		    	        android:layout_gravity="center_vertical"
-		    	        android:layout_weight="1"
-		    	        android:gravity="center_vertical"
-		    	        android:text="@string/distanceLabel" />
-
+		    
 		    	    <TextView
 		    	        android:id="@+id/distanceTextView"
 		    	        android:layout_width="fill_parent"
 		    	        android:layout_height="wrap_content"
 		    	        android:layout_gravity="center_vertical"
 		    	        android:layout_weight="1"
-		    	        android:gravity="right"/>
-		    	</LinearLayout>
+		    	        android:text="Distance"
+		    	        android:gravity="right" android:textColor="@color/gris"
+		    	        android:visibility="gone"/>
+		</LinearLayout>
+		    	
     	    
 </LinearLayout>

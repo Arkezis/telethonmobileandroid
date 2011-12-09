@@ -13,7 +13,7 @@
 			<TextView
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
+				android:layout_weight="2" 
 				android:id="@+id/poiNameLabel" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
@@ -37,7 +37,7 @@
 			<TextView
 				android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
-				android:layout_weight="1" 
+				android:layout_weight="2" 
 				android:id="@+id/categoryLabel" 
 				android:gravity="center_vertical"
 				android:layout_gravity="center_vertical"
